@@ -21,39 +21,22 @@ function SideBar() {
       <div className={`${styles.text} `}>
         <Link to={"/reports"}>
           <img src={iconLaporan} alt="" />
-          <p>Semua Naskah</p>
-        </Link>
-      </div>
-      <div className={`${styles.text} `}>
-        <Link to={"/reports-verifikasi"}>
-          <img src={iconVerify} alt="" />
-          <p>Naskah Perlu Verifikasi</p>
+          <p>Naskah Perlu TTD</p>
         </Link>
       </div>
       <div className={`${styles.text} `}>
         <Link to={"/reports-ttd"}>
           <img src={iconTTD} alt="" />
-          <p>Naskah Perlu TTD</p>
+          <p>Naskah Sudah TTD</p>
         </Link>
       </div>
-      <div className={`${styles.text} `}>
-        <Link to={"/reports-send"}>
-          <img src={iconKirim} alt="" />
-          <p>Naskah Perlu Dikirim</p>
-        </Link>
-      </div>
-      {/* <div className={`${styles.text} `}>
-        <Link to={"/reports-revisi"}>
-          <img src={iconRevisi} alt="" />
-          <p>Naskah Perlu Direvisi</p>
-        </Link>
-      </div> */}
       <div className={`${styles.text} `}>
         <Link to={"/reports-done"}>
           <img src={iconSelesai} alt="" />
           <p>Naskah Selesai</p>
         </Link>
       </div>
+      
     </nav>
   );
 }

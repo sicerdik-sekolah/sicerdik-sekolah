@@ -5,6 +5,7 @@ import { Link, useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { logout } from "../../store/reducers/loginSlice";
 import Cookies from "js-cookie";
+import iconSicerdik from '../../assets/logo-sicerdik-fix.png'
 
 import { authorizationCheck } from "../../utils/authRole";
 function NavBar() {
@@ -34,7 +35,7 @@ function NavBar() {
         </div>
 
         <div className={styles.title} onClick={() => navigate("/home")}>
-          <h1>SICERDIK</h1>
+          <img src={iconSicerdik} alt="" width={"150px"} />
           <p>Tanjungpinang</p>
         </div>
         <div className={styles.user}>

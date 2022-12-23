@@ -6,126 +6,53 @@ import Footer from "../components/Footer/Footer";
 import Table from "../components/Table/Table";
 import SideBar from "../components/SideBar/SideBar";
 import { useSelector, useDispatch } from "react-redux";
-import iconHome from "../assets/icon-sidebar-home.png";
-import iconLaporan from "../assets/icon-sidebar-laporan.png";
-import iconTTD from "../assets/icon-sidebar-ttd.png";
-import iconVerify from "../assets/icon-verify.png";
-import iconRevisi from "../assets/icon-revisi.png";
-import iconKirim from "../assets/icon-sidebar-kirim.png";
-import iconSelesai from "../assets/icon-sidebar-selesai.png";
-import CardHomeLaporan from "../components/CardHomeLaporan/CardHomeLaporan";
 import { fetchNaskah } from "../store/reducers/dummyDataSlice";
+import ButtonFormView from "../components/ButtonFormView/ButtonFormView";
+
 function Home() {
   const navigation = useNavigate();
   const { data } = useSelector((state) => state.dummyData);
   const dispatch = useDispatch();
-  const dataPerluVerifikasi = data
-    ? data
-        .filter((item) => {
-          return item.status_verifikasi == false;
-        })
-        .map((item) => item)
-    : [];
-  const dataPerluDikirim = data
-    ? data
-        .filter((item) => {
-          return item.status_kirim == false;
-        })
-        .map((item) => item)
-    : [];
-
-  const dataButuhTTD = data
-    ? data
-        .filter((item) => {
-          return item.status_ttd == false;
-        })
-        .map((item) => item)
-    : [];
-  const dataVerifikasi = data
-    ? data
-        .filter((item) => {
-          return item.status_verifikasi == false;
-        })
-        .map((item) => item)
-    : [];
-
-  const dataSelesai = data
-    ? data
-        .filter((item) => {
-          return item.status_kirim == true;
-        })
-        .map((item) => item)
-    : [];
-  
-    useEffect(() => {
-      if(!Cookies.get("token")){
-        navigation('/login')
-      }
-    }, [Cookies.get("token")])
-
   useEffect(() => {
     dispatch(fetchNaskah());
-    setInterval(() => {
-      console.log("token", Cookies.get("token"))
-      if(!Cookies.get("token")){
-        navigation('/login')
-      }else{
-        dispatch(fetchNaskah());
-      }
-    }, 45000);
   }, []);
+
+  useEffect(() => {
+    if (!Cookies.get("token")) {
+      navigation("/login");
+      window.location.reload()
+    }
+  }, [Cookies.get("token")]);
+
+  // useEffect(() => {
+  //   dispatch(fetchNaskah());
+  //   setInterval(() => {
+  //     console.log("token", Cookies.get("token"));
+  //     if (!Cookies.get("token")) {
+  //       navigation("/login");
+  //     } else {
+  //       dispatch(fetchNaskah());
+  //     }
+  //   }, 45000);
+  // }, []);
   return (
     <>
       <NavBar />
       <div className="d-flex flex-row justify-content-center">
-        <div
-          className="pt-3"
-          style={{ width: "17%", borderRight: "2px solid #A19F9F" }}
-        >
+        <div className="pt-3" style={{ width: "20%" }}>
           <SideBar />
         </div>
-        <main className="main-home pt-5 pb-5 px-2" style={{ width: "83%" }}>
-          <div className="w-100 d-flex justify-content-center mt-5 flex-row flex-wrap align-items-center gap-5">
-            {data && (
-              <>
-                <CardHomeLaporan
-                  img={iconLaporan}
-                  size={data.length}
-                  url={"/reports"}
-                  label={"Total Naskah Aktif"}
-                />
-                <CardHomeLaporan
-                  img={iconVerify}
-                  size={dataPerluVerifikasi.length}
-                  url={"/reports-verifikasi"}
-                  label={"Total Naskah Perlu Verifikasi"}
-                />
-                <CardHomeLaporan
-                  img={iconKirim}
-                  size={dataPerluDikirim.length}
-                  url={"/reports-send"}
-                  label={"Total Naskah Perlu Dikirim"}
-                />
-                <CardHomeLaporan
-                  img={iconTTD}
-                  size={dataButuhTTD.length}
-                  url={"/reports-ttd"}
-                  label={"Total Naskah Perlu Di Tandatangan"}
-                />
-                {/* <CardHomeLaporan
-                  img={iconRevisi}
-                  size={dataButuhTTD.length}
-                  url={"/reports-revisi"}
-                  label={"Total Naskah Perlu Di Revisi"}
-                /> */}
-                <CardHomeLaporan
-                  img={iconSelesai}
-                  size={dataSelesai.length}
-                  url={"/reports-done"}
-                  label={"Total Naskah Selesai"}
-                />
-              </>
-            )}
+        <main className="main-home pt-5 pb-5 px-5" style={{ width: "80%" }}>
+          <div className="d-flex justify-content-end mb-3">
+            <ButtonFormView onClick={() => navigation('/BuatLaporan')}>+Laporan Baru</ButtonFormView>
+          </div>
+          <div className="container main-container bg-white p-5 ">
+            <div className="mx-5 mt-3 mb-4">
+              <h2 className="pb-3" style={{color :"#0A2966"}}>Daftar Semua Naskah</h2>
+            </div>
+            <div className="container table-container panel panel-default">
+              <Table />
+            </div>
           </div>
         </main>
       </div>

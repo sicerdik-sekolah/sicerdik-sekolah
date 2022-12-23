@@ -1,13 +1,13 @@
 import React from "react";
-import styles from "./InputFormWithLabel.module.css";
+import styles from "./TextAreaFormWithLabel.module.css";
 
-function InputFormWithLabel(props) {
+function TextAreaFormWithLabel(props) {
   return (
     <div className={styles.inputGroup}>
       <label> {props.label}</label>
       {/* {console.log("val >> ", props.value.toLocaleString())} */}
       <div>
-        <input
+        <textarea
           type={props.type}
           name={props.name}
           onChange={props.onChange}
@@ -20,4 +20,4 @@ function InputFormWithLabel(props) {
   );
 }
 
-export default InputFormWithLabel;
+export default TextAreaFormWithLabel;

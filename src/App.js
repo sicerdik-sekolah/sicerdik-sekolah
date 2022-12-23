@@ -20,6 +20,7 @@ import LaporanPerluVerifikasi from "./pages/LaporanPerluVerifikasi";
 import LaporanPerluRevisi from "./pages/LaporanPerluRevisi";
 import BuatAkun from "./pages/BuatAkun";
 import TampilanBorang from "./pages/TampilanBorang";
+import BuatLaporan from "./pages/BuatLaporan";
 
 function App() {
   const [instance, setInstance] = useState();
@@ -40,19 +41,8 @@ function App() {
           <Route path="/reports-revisi" element={<LaporanPerluRevisi />} />
           <Route path="/reports-done" element={<LaporanSelesai />} />
           <Route path="/login" element={<Login />} />
-          <Route path="/manajemen-akun" element={<ManajemenAkunLogin />} />
-          <Route path="/manajemen-akun/users" element={<Users />} />
-          <Route
-            path="/manajemen-akun/users/ganti-status/:id"
-            element={<GantiStatusAkun />}
-          />
-          <Route
-            path="/manajemen-akun/users/reset-password/:id"
-            element={<ResetPassword />}
-          />
-          <Route path="/manajemen-akun/buat-akun" element={<BuatAkun />} />
-          <Route path="/signup" element={<Signup />} />
           <Route path="/detail/:id" element={<Detail />} />
+          <Route path="/BuatLaporan" element={<BuatLaporan />} />
         </Routes>
       </WebViewerContext.Provider>
     </>

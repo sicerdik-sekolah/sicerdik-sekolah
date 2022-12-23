@@ -224,6 +224,7 @@ input[type="number"] {
 @media screen and (max-height: 768px) {
   .main-home {
     height: 190vh;
+    overflow-y: scroll;
   }
 }
 
@@ -240,7 +241,7 @@ input[type="number"] {
   font-weight: 500;
   font-size: 24px;
   line-height: 36px;
-  border-bottom: 2px solid #a19f9f;
+  border-bottom: 2px solid #0A2966;
 }
 
 .table-container {
@@ -291,7 +292,7 @@ td {
 }
 
 .formCardHead {
-  border-bottom: 2px solid #a19f9f;
+  border-bottom: 2px solid #0A2966;
 }
 
 .formCardHead h3 {
@@ -300,6 +301,7 @@ td {
   font-size: 20px;
   margin: 0;
   padding: 0;
+  color: #0A2966;
 }
 
 .verifikasiPenandatangan {

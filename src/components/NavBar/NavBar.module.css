@@ -18,8 +18,9 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  flex-direction: column;
+  flex-direction: row;
   flex: 1;
+  gap: 1rem;
   cursor: default;
 }
 
@@ -28,7 +29,7 @@
   font-family: "Poppins", sans-serif;
 
   font-weight: 700;
-  font-size: 44px;
+  font-size: 28px;
   margin: 0;
 }
 .navbar .title p {
@@ -36,7 +37,7 @@
   font-family: "Poppins", sans-serif;
 
   font-weight: 400;
-  font-size: 30px;
+  font-size: 20px;
   margin: 0;
 }
 
