@@ -72,6 +72,35 @@ function BuatLaporan() {
           <SideBar />
         </div>
         <main className="main pt-5 pb-5 px-5" style={{ width: "80%" }}>
+          {/* data Orangtua / wali murid*/}
+          <FormCard>
+            <div className="mx-4 mt-3 mb-4 formCardHead">
+              <h3 className="pb-3">Data Orang Tua / Wali Murid</h3>
+            </div>
+            <div className="mx-4 d-flex flex-column gap-4">
+              <InputFormWithLabel
+                label={"Nama Lengkap"}
+                placeholder={"Contoh : Setiawan Desiyani Mulyana"}
+              />
+
+              <InputFormWithLabel
+                label={"Alamat"}
+                placeholder={
+                  "Contoh : Jl. Cendawan 15, RT. 001/RW. 005, Tanjung Priok"
+                }
+              />
+              <InputFormWithLabel
+                label={"Pekerjaan"}
+                placeholder={"Contoh : Pegawai Negeri Sipil Guru SMA"}
+              />
+              <InputFormWithLabel
+                label={"No HP"}
+                type={"number"}
+                placeholder={"Contoh : 08226928122"}
+              />
+            </div>
+          </FormCard>
+
           {/* data siswa peserta didik*/}
           <FormCard>
             <div className="mx-4 mt-3 mb-4 formCardHead">
@@ -112,7 +141,7 @@ function BuatLaporan() {
                     style={{
                       backgroundColor: "#D9D9D9",
                       border: "1px solid rgba(0, 0, 0, 0.25)",
-                      borderRadius: "3px"
+                      borderRadius: "3px",
                     }}
                   >
                     <option value={"Pria"}>Laki-Laki </option>
@@ -168,6 +197,74 @@ function BuatLaporan() {
             </div>
           </FormCard>
 
+          {/* data pilih jenis file*/}
+          <FormCard>
+            <div className="mx-4 mt-3 mb-4 formCardHead">
+              <h3 className="pb-3">Pilih Jenis Surat</h3>
+            </div>
+            <div className="d-flex mx-4 flex-column gap-3">
+              <InputFormWithLabel
+                label={"Kop Surat Sekolah"}
+                placeholder={
+                  "Contoh : SD NEGERI 014 TANJUNGPINANG BUKIT BESTARI"
+                }
+              />
+              <InputFormWithLabel
+                label={"Alamat Kop Surat"}
+                placeholder={
+                  "Contoh : Jl Basuki Rahmat No 4 Bukit Bestari Tanjungpinang"
+                }
+              />
+              <InputFormWithLabel
+                label={"Email Kop Surat"}
+                placeholder={"Contoh : sdn014binaan@disdik.co.id"}
+              />
+              <div className="d-flex justify-content-end">
+                <p style={{fontSize: "12px"}}>*Bagian ini harus diisi agar sistem secara otomatis menampilkan kop surat anda</p>
+              </div>
+            </div>
+            <div className="d-flex justify-content-between mx-4 my-3">
+              <p style={{ fontSize: "18px", flex: "0.245" }} className="">
+                Hal :
+              </p>
+
+              <div style={{ flex: "0.755" }}>
+                <Form.Select
+                  style={{
+                    backgroundColor: "#D9D9D9",
+                    border: "1px solid rgba(0, 0, 0, 0.25)",
+                    borderRadius: "3px",
+                  }}
+                >
+                  <option value={"PINDAH KELUAR"}>Pindah Keluar </option>
+                  <option value={"PINDAH MASUK"}>Pindah Masuk </option>
+                </Form.Select>
+              </div>
+            </div>
+            <div className="d-flex justify-content-between mx-4">
+              <p style={{ fontSize: "18px", flex: "0.245" }} className="">
+                Jenis Surat :
+              </p>
+
+              <div style={{ flex: "0.755" }}>
+                <Form.Select
+                  style={{
+                    backgroundColor: "#D9D9D9",
+                    border: "1px solid rgba(0, 0, 0, 0.25)",
+                    borderRadius: "3px",
+                  }}
+                >
+                  <option value={"FORMAT_PINDAH_SEKOLAH"}>
+                    Surat Pindah Sekolah{" "}
+                  </option>
+                  <option value={"FORMAT_PINDAH_RAYON"}>
+                    Surat Pindah Rayon{" "}
+                  </option>
+                </Form.Select>
+              </div>
+            </div>
+          </FormCard>
+
           {/* unggah berkas */}
           <FormCard>
             <div className="mx-4 mt-3 mb-4 formCardHead">
@@ -195,13 +292,17 @@ function BuatLaporan() {
                   <input type="file" />
                 </div>
               </div>
-              {/* <div>
-                <ViewBorangCard label={"Surat Keterangan Lulus"} />
+              <div>
+                <ViewBorangCard
+                  label={"Surat Surat Rekomendasi Dinas Setempat"}
+                />
                 <div className="input-group mt-2 gap-2 mx-1 d-flex flex-column">
-                  <label htmlFor="">Upload Surat Rekomendasi Dinas Setempat</label>
+                  <label htmlFor="">
+                    Upload Surat Rekomendasi Dinas Setempat
+                  </label>
                   <input type="file" />
                 </div>
-              </div> */}
+              </div>
               <div>
                 <ViewBorangCard label={"Surat Lain-lain"} />
                 <div className="input-group mt-2 gap-2 mx-1 d-flex flex-column">
