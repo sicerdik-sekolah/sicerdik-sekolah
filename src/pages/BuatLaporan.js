@@ -15,17 +15,17 @@ import "react-toastify/dist/ReactToastify.css";
 import Footer from "../components/Footer/Footer";
 import NavBar from "../components/NavBar/NavBar";
 import FormCard from "../components/FormCard/FormCard";
-import ViewSuratCard from "../components/ViewSuratCard/ViewSuratCard";
 import Form from "react-bootstrap/Form";
 import ButtonFormView from "../components/ButtonFormView/ButtonFormView";
 import InputFormWithLabel from "../components/InputFormWithLabel/InputFormWithLabel";
-import ViewStatusCard from "../components/ViewStatusCard/ViewStatusCard";
-import Swal from "sweetalert2";
 import SideBar from "../components/SideBar/SideBar";
 import { authorizationCheck } from "../utils/authRole";
 import TextAreaFormWithLabel from "../components/TextAreaFormWithLabel/TextAreaFormWithLabel";
 import ViewBorangCard from "../components/ViewBorangCard/ViewBorangCard";
+import useStateBuatLaporan from "./useStateBuatLaporan.hooks";
 function BuatLaporan() {
+  const navigation = useNavigate();
+  const dispatch = useDispatch();
   // const roleSementara = "Ketua Sub Bagian";
   const [roleSementara, setRoleSementara] = useState(authorizationCheck());
   const [form, setForm] = useState({
@@ -44,7 +44,7 @@ function BuatLaporan() {
     pekerjaan_orang_tua: "",
     alamat_orangtua: "",
     noHp_orang_tua: "",
-    tahun_lulus: "",
+    tahun_lulus: new Date().getFullYear(),
     tujuan_sekolah: "",
     tanggal_naskah: new Date(),
     nama_kepala_sekolah: "",
@@ -66,6 +66,7 @@ function BuatLaporan() {
     surat_rekomendasi_dinas_setempat: "",
     surat_lain_lain: "",
   });
+  const [status, setStatus] = useState(false);
 
   const handleChange = (e) => {
     if (
@@ -98,11 +99,43 @@ function BuatLaporan() {
   };
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.log(form);
-  }
-  // const { id } = useParams();
-  const navigation = useNavigate();
-  const dispatch = useDispatch();
+    console.log(form); 
+  };
+
+  
+  useEffect(() => {
+    if (
+      !form.nomor_laporan ||
+      !form.nama_siswa ||
+      !form.nis ||
+      !form.nisn_siswa ||
+      !form.alamat ||
+      !form.tempat_tgl_lahir ||
+      !form.tingkatDanKelas ||
+      !form.nama_orang_tua ||
+      !form.pekerjaan_orang_tua ||
+      !form.alamat_orangtua ||
+      !form.noHp_orang_tua ||
+      !form.tujuan_sekolah ||
+      !form.nama_kepala_sekolah ||
+      !form.nip_kepala_sekolah ||
+      !form.noTelp_tujuan_sekolah ||
+      !form.desa_tujuan_sekolah ||
+      !form.kelurahan_tujuan_sekolah ||
+      !form.kecamatan_tujuan_sekolah ||
+      !form.kabupatenKota_tujuan_sekolah ||
+      !form.provinsi_tujuan_sekolah ||
+      !form.alasan_pindah ||
+      !form.header_sekolah ||
+      !form.alamat_header_sekolah ||
+      !form.email_header_sekolah
+    ) {
+      setStatus(false);
+    } else {
+      setStatus(true);
+    }
+  }, [form]);
+  
 
   return (
     <>
@@ -112,7 +145,11 @@ function BuatLaporan() {
         <div className="pt-3" style={{ width: "20%" }}>
           <SideBar />
         </div>
-        <form className="main pt-5 pb-5 px-5" style={{ width: "80%" }} onSubmit={handleSubmit}>
+        <form
+          className="main pt-5 pb-5 px-5"
+          style={{ width: "80%" }}
+          onSubmit={handleSubmit}
+        >
           {/* data Orangtua / wali murid*/}
           <ToastContainer />
           <FormCard>
@@ -222,6 +259,7 @@ function BuatLaporan() {
                       border: "1px solid rgba(0, 0, 0, 0.25)",
                       borderRadius: "3px",
                     }}
+                    value={form.jenis_kelamin}
                   >
                     <option value={"Laki-Laki"}>Laki-Laki </option>
                     <option value={"Perempuan"}>Perempuan </option>
@@ -373,7 +411,7 @@ function BuatLaporan() {
                 onChange={handleChange}
               />
               <div className="d-flex justify-content-end">
-                <p style={{ fontSize: "12px" }}>
+                <p style={{ color : "#FD8A8A",fontSize: "12px" }}>
                   *Bagian ini harus diisi agar sistem secara otomatis
                   menampilkan kop surat anda
                 </p>
@@ -396,7 +434,7 @@ function BuatLaporan() {
                 onChange={handleChange}
               />
               <div className="d-flex justify-content-end">
-                <p style={{ fontSize: "12px" }}>
+                <p style={{ color : "#FD8A8A",fontSize: "12px" }}>
                   *Bagian ini harus diisi agar sistem secara otomatis memasukkan
                   nama kepala sekolah dan nip nya
                 </p>
@@ -416,6 +454,7 @@ function BuatLaporan() {
                     border: "1px solid rgba(0, 0, 0, 0.25)",
                     borderRadius: "3px",
                   }}
+                  value={form.hal}
                 >
                   <option value={"PINDAH_KELUAR"}>Pindah Keluar </option>
                   <option value={"PINDAH_MASUK"}>Pindah Masuk </option>
@@ -436,6 +475,7 @@ function BuatLaporan() {
                     border: "1px solid rgba(0, 0, 0, 0.25)",
                     borderRadius: "3px",
                   }}
+                  value={form.jenis_surat}
                 >
                   <option value={"FORMAT_PINDAH_SEKOLAH"}>
                     Surat Pindah Sekolah{" "}
@@ -455,7 +495,14 @@ function BuatLaporan() {
             </div>
             <div className="mx-4 d-flex flex-column gap-4">
               <div>
-                <ViewBorangCard label={"Surat Permohonan Orangtua"} />
+                <ViewBorangCard
+                  label={"Surat Permohonan Orangtua"}
+                  status={status}
+                  allData={{
+                    ...form,
+                    jenis_surat: "FORMAT_SURAT_PERMOHONAN_ORTU",
+                  }}
+                />
                 <div className="input-group mt-2 gap-2 mx-1 d-flex flex-column">
                   <label htmlFor="">
                     Upload Surat Permohonan Orangtua{" "}
@@ -470,7 +517,11 @@ function BuatLaporan() {
                 </div>
               </div>
               <div>
-                <ViewBorangCard label={"Surat Keterangan Pindah"} />
+                <ViewBorangCard
+                  label={"Surat Keterangan Pindah"}
+                  status={status}
+                  allData={form}
+                />
                 <div className="input-group mt-2 gap-2 mx-1 d-flex flex-column">
                   <label htmlFor="">
                     Upload Surat Keterangan Pindah{" "}
@@ -486,7 +537,10 @@ function BuatLaporan() {
               </div>
               {form.jenis_surat === "FORMAT_PINDAH_RAYON" && (
                 <div>
-                  <ViewBorangCard label={"Surat Keterangan Lulus"} />
+                  {/* <ViewBorangCard label={"Surat Keterangan Lulus"} /> */}
+                  <div className=" pt-2" style={{borderTop : "1px solid #0A2966"}}>
+                    <h5 style={{fontWeight : "400"}}>Surat Keterangan Lulus</h5>
+                  </div>
                   <div className="input-group mt-2 gap-2 mx-1 d-flex flex-column">
                     <label htmlFor="">
                       Upload Surat Keterangan Lulus{" "}
@@ -503,7 +557,10 @@ function BuatLaporan() {
               )}
               {form.hal === "PINDAH_MASUK" && (
                 <div>
-                  <ViewBorangCard label={"Surat Rekomendasi Dinas Setempat"} />
+                  {/* <ViewBorangCard label={"Surat Rekomendasi Dinas Setempat"} /> */}
+                  <div className=" pt-2" style={{borderTop : "1px solid #0A2966"}}>
+                    <h5 style={{fontWeight : "400"}}>Surat Rekomendasi Dinas Setempat</h5>
+                  </div>
                   <div className="input-group mt-2 gap-2 mx-1 d-flex flex-column">
                     <label htmlFor="">
                       Upload Surat Rekomendasi Dinas Setempat{" "}
@@ -519,7 +576,10 @@ function BuatLaporan() {
                 </div>
               )}
               <div>
-                <ViewBorangCard label={"Surat Lain-lain"} />
+                {/* <ViewBorangCard label={"Surat Lain-lain"} /> */}
+                <div className=" pt-2" style={{borderTop : "1px solid #0A2966"}}>
+                    <h5 style={{fontWeight : "400"}}>Surat Lain-Lain</h5>
+                  </div>
                 <div className="input-group mt-2 gap-2 mx-1 d-flex flex-column">
                   <label htmlFor="">Upload Surat Lain-lain</label>
                   <input
@@ -533,9 +593,7 @@ function BuatLaporan() {
           </FormCard>
 
           <div className="d-flex justify-content-center mx-5 mt-5">
-            <ButtonFormView type={"submit"}>
-              Buat Laporan
-            </ButtonFormView>
+            <ButtonFormView type={"submit"}>Buat Laporan</ButtonFormView>
           </div>
         </form>
       </div>

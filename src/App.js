@@ -21,7 +21,7 @@ import LaporanPerluRevisi from "./pages/LaporanPerluRevisi";
 import BuatAkun from "./pages/BuatAkun";
 import TampilanBorang from "./pages/TampilanBorang";
 import BuatLaporan from "./pages/BuatLaporan";
-
+import CreateBorang from "./pages/CreateBorang"
 function App() {
   const [instance, setInstance] = useState();
   return (
@@ -31,6 +31,7 @@ function App() {
           <Route path="/" element={<PageBeforeLogin />} />
           <Route path="/home" element={<Home />} />
           <Route path="/tampilin" element={<TampilanBorang />} />
+          <Route path="/createBorang" element={<CreateBorang />} />
           <Route path="/reports" element={<SemuaLaporan />} />
           <Route path="/reports-ttd" element={<LaporanPerluTTD />} />
           <Route
