@@ -1,17 +1,26 @@
 import React, { useEffect } from "react";
 import NavBar from "../components/NavBar/NavBar";
-import { useNavigate } from "react-router-dom";
 import Cookies from "js-cookie";
 import Footer from "../components/Footer/Footer";
 import Table from "../components/Table/Table";
 import SideBar from "../components/SideBar/SideBar";
 import { useDispatch } from "react-redux";
 import { fetchNaskah } from "../store/reducers/dummyDataSlice";
+import { useNavigate } from "react-router-dom";
 function LaporanPerluDikirim() {
   const dispatch = useDispatch();
   useEffect(() => {
     dispatch(fetchNaskah());
   }, []);
+
+  const navigation = useNavigate()
+  useEffect(() => {
+    if (!Cookies.get("token")) {
+      navigation("/login");
+      window.location.reload()
+    }
+  }, [Cookies.get("token")]);
+
   return (
     <>
       <NavBar />

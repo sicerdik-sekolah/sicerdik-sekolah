@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import { Link, useParams } from "react-router-dom";
 import { useNavigate, createSearchParams } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
+import Cookies from "js-cookie";
 import {
   changeStatusVerifikasi,
   changeStatusKirim,
@@ -23,6 +24,9 @@ import { authorizationCheck } from "../utils/authRole";
 import TextAreaFormWithLabel from "../components/TextAreaFormWithLabel/TextAreaFormWithLabel";
 import ViewBorangCard from "../components/ViewBorangCard/ViewBorangCard";
 import useStateBuatLaporan from "./useStateBuatLaporan.hooks";
+import Swal from 'sweetalert2'
+
+
 function BuatLaporan() {
   const navigation = useNavigate();
   const dispatch = useDispatch();
@@ -100,6 +104,19 @@ function BuatLaporan() {
   const handleSubmit = (e) => {
     e.preventDefault();
     console.log(form); 
+    Swal.fire({
+      title: 'Buat Naskah Baru?',
+      showDenyButton: true,
+      confirmButtonText: 'Buat',
+      denyButtonText: `Batalkan`,
+    }).then((result) => {
+      /* Read more about isConfirmed, isDenied below */
+      if (result.isConfirmed) {
+        Swal.fire('Naskah Telah Dibuat!', '', 'success')
+        // dispatch api
+        navigation("/home")
+      }
+    })
   };
 
   
@@ -136,6 +153,13 @@ function BuatLaporan() {
     }
   }, [form]);
   
+  useEffect(() => {
+    if (!Cookies.get("token")) {
+      navigation("/login");
+      window.location.reload()
+    }
+  }, [Cookies.get("token")]);
+
 
   return (
     <>

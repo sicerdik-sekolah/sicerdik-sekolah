@@ -23,7 +23,8 @@ function ViewBorangCard(props) {
       });
     } else {
       setCanGo(true);
-      setForm(props.allData)
+      setForm(props.allData);
+      console.log("props all data >>> ", form);
     }
   };
 
@@ -41,27 +42,38 @@ function ViewBorangCard(props) {
             search: `${
               canGo
                 ? createSearchParams({
+                    nama_orang_tua: form.nama_orang_tua,
+                    alamat_orangtua: form.alamat_orangtua,
+                    pekerjaan_orang_tua : form.pekerjaan_orang_tua,
+                    noHp_orangtua : form.noHp_orang_tua,
                     jenis_surat: form.jenis_surat,
                     nomor_laporan: form.nomor_laporan,
                     nama_siswa: form.nama_siswa,
                     asal_sekolah: form.asal_sekolah,
                     tujuan_sekolah: form.tujuan_sekolah,
-                    nomor_naskah: form.nomor_naskah,
-                    tanggal_naskah_masuk: form.tanggal_naskah,
-                    // tanggal_disposisi: form.tanggal_naskah_disposisi,
+                    tanggal_naskah: form.tanggal_naskah,
                     nisn_siswa: form.nisn_siswa,
-                    nis_siswa: form.nis,
-                    kelas: form.kelas,
-                    nama_ortu: form.nama_orang_tua,
+                    nis: form.nis,
+                    tingkatDanKelas: form.tingkatDanKelas,
                     jenis_kelamin: form.jenis_kelamin,
                     nip: form.nip_kepala_sekolah,
-                    tempat_tanggal_lahir: form.tempat_tgl_lahir,
-                    pekerjaan_ortu: form.pekerjaan_orang_tua,
+                    tempat_tgl_lahir: form.tempat_tgl_lahir,
                     alasan_pindah: form.alasan_pindah,
-                    // jabatan: roleSementara,
                     tahun_lulus: `${
                       form.tahun_lulus ? form.tahun_lulus : "2022"
                     }`,
+                    header_sekolah : form.header_sekolah,
+                    alamat_header_sekolah : form.alamat_header_sekolah,
+                    email_header_sekolah : form.email_header_sekolah,
+                    alamat_tujuan_sekolah : form.alamat_tujuan_sekolah,
+                    noTelp_tujuan_sekolah : form.noTelp_tujuan_sekolah,
+                    desa_tujuan_sekolah : form.desa_tujuan_sekolah,
+                    kelurahan_tujuan_sekolah : form.kelurahan_tujuan_sekolah,
+                    kecamatan_tujuan_sekolah : form.kecamatan_tujuan_sekolah,
+                    kabupatenKota_tujuan_sekolah : form.kabupatenKota_tujuan_sekolah,
+                    provinsi_tujuan_sekolah : form.provinsi_tujuan_sekolah,
+                    nama_kepala_sekolah : form.nama_kepala_sekolah,
+                    nip_kepala_sekolah : form.nip_kepala_sekolah,
                   }).toString()
                 : ""
             }`,

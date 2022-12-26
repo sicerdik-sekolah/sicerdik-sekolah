@@ -22,6 +22,7 @@ import BuatAkun from "./pages/BuatAkun";
 import TampilanBorang from "./pages/TampilanBorang";
 import BuatLaporan from "./pages/BuatLaporan";
 import CreateBorang from "./pages/CreateBorang"
+import DetailNaskah from "./pages/DetailNaskah";
 function App() {
   const [instance, setInstance] = useState();
   return (
@@ -43,6 +44,7 @@ function App() {
           <Route path="/reports-done" element={<LaporanSelesai />} />
           <Route path="/login" element={<Login />} />
           <Route path="/detail/:id" element={<Detail />} />
+          <Route path="/detailNaskah/:id" element={<DetailNaskah />} />
           <Route path="/BuatLaporan" element={<BuatLaporan />} />
         </Routes>
       </WebViewerContext.Provider>

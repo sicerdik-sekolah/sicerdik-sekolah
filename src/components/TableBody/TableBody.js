@@ -63,7 +63,8 @@ function TableBody(props) {
               </td>
 
               <td>
-                <Link to={`/detail/${item._id}`}>
+                {/* <Link to={`/detail/${item._id}`}> */}
+                <Link to={`/detailNaskah/${item._id}`}>
                   <span className="action-btn">
                     <img src={IconAksi} alt="icon" />
                   </span>

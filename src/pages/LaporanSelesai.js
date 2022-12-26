@@ -13,6 +13,14 @@ function LaporanSelesai() {
   useEffect(() => {
     dispatch(fetchNaskah());
   }, []);
+  const navigation = useNavigate();
+  useEffect(() => {
+    if (!Cookies.get("token")) {
+      navigation("/login");
+      window.location.reload();
+    }
+  }, [Cookies.get("token")]);
+
   return (
     <>
       <NavBar />

@@ -9,7 +9,7 @@ import {
   useSearchParams,
   useNavigate,
 } from "react-router-dom";
-
+import Cookies from "js-cookie";
 import moment from "moment/moment";
 import { useState } from "react";
 function dapatkanBulan(angka) {
@@ -44,43 +44,54 @@ function CreateBorang(props) {
   const viewer = useRef(null);
   const navigation = useNavigate();
   const [searchParams] = useSearchParams();
-  
-  const dateMasuk = new Date(searchParams.get("tanggal_naskah_masuk"));
+
+  const dateMasuk = new Date(searchParams.get("tanggal_naskah"));
   const tanggalMasuk = dateMasuk.getDate();
   const bulanMasuk = dapatkanBulan(dateMasuk.getMonth() + 1);
   const tahunMasuk = dateMasuk.getFullYear();
-  const datedisposisi = new Date(searchParams.get("tanggal_disposisi"));
-  console.log("dateDisposisi >> ", datedisposisi);
-  const tanggaldisposisi = datedisposisi.getDate();
-  const bulandisposisi = dapatkanBulan(datedisposisi.getMonth() + 1);
-  const tahundisposisi = datedisposisi.getFullYear();
-
-  const [jenisSurat, setJenisSurat] = useState(searchParams.get("jenis_surat"))
-
-
+  const header = searchParams.get("header_sekolah").toUpperCase()
+  const [jenisSurat, setJenisSurat] = useState(searchParams.get("jenis_surat"));
+  const asalSekolah = searchParams.get("asal_sekolah").toUpperCase()
   const jsonData = {
-    nama_siswa: searchParams.get("nama_siswa"),
+    nama_orang_tua: searchParams.get("nama_orang_tua"),
+    alamat_orangtua: searchParams.get("alamat_orangtua"),
+    pekerjaan_orang_tua: searchParams.get("pekerjaan_orang_tua"),
+    noHp_orangtua: searchParams.get("noHp_orangtua"),
+    jenis_surat: searchParams.get("jenis_surat"),
     nomor_laporan: searchParams.get("nomor_laporan"),
-    asal_sekolah: searchParams.get("asal_sekolah"),
-    nomor_naskah: searchParams.get("nomor_naskah"),
-    nisn_siswa: searchParams.get("nisn_siswa"),
-    nis_siswa: searchParams.get("nis_siswa"),
+    nama_siswa: searchParams.get("nama_siswa"),
+    asal_sekolah: asalSekolah,
     tujuan_sekolah: searchParams.get("tujuan_sekolah"),
-    nomor_naskah: searchParams.get("nomor_naskah"),
-    kelas: searchParams.get("kelas"),
-    alasan_pindah: searchParams.get("alasan_pindah"),
-    nama_ortu: searchParams.get("nama_ortu"),
-    pekerjaan_ortu: searchParams.get("pekerjaan_ortu"),
+    tanggal_naskah: `${tanggalMasuk} ${bulanMasuk} ${tahunMasuk}`,
+    nisn_siswa: searchParams.get("nisn_siswa"),
+    nis: searchParams.get("nis"),
+    tingkatDanKelas: searchParams.get("tingkatDanKelas"),
     jenis_kelamin: searchParams.get("jenis_kelamin"),
-    tempat_tanggal_lahir: searchParams.get("tempat_tanggal_lahir"),
-    yang_menandatangani: searchParams.get("yang_menandatangani"),
-    nip: searchParams.get("nip"),
-    tanggal_naskah_masuk: `${tanggalMasuk} ${bulanMasuk} ${tahunMasuk}`,
-    tanggal_disposisi: `${tanggaldisposisi} ${bulandisposisi} ${tahundisposisi}`,
+    nip: searchParams.get("nip_kepala_sekolah"),
+    tempat_tgl_lahir: searchParams.get("tempat_tgl_lahir"),
+    alasan_pindah: searchParams.get("alasan_pindah"),
+    tahun_lulus: searchParams.get("tahun_lulus"),
+    header_sekolah: header,
+    alamat_header_sekolah: searchParams.get("alamat_header_sekolah"),
+    email_header_sekolah: searchParams.get("email_header_sekolah"),
+    alamat_tujuan_sekolah: searchParams.get("alamat_tujuan_sekolah"),
+    noTelp_tujuan_sekolah: searchParams.get("noTelp_tujuan_sekolah"),
+    desa_tujuan_sekolah: searchParams.get("desa_tujuan_sekolah"),
+    kelurahan_tujuan_sekolah: searchParams.get("kelurahan_tujuan_sekolah"),
+    kecamatan_tujuan_sekolah: searchParams.get("kecamatan_tujuan_sekolah"),
+    kabupatenKota_tujuan_sekolah: searchParams.get("kabupatenKota_tujuan_sekolah"),
+    provinsi_tujuan_sekolah: searchParams.get("provinsi_tujuan_sekolah"),
+    nama_kepala_sekolah: searchParams.get("nama_kepala_sekolah"),
+    nip_kepala_sekolah: searchParams.get("nip_kepala_sekolah"),
   };
   console.log("searchparams >> ", searchParams.get("nama_siswa"));
   console.log("props >> ", props);
-
+  const token = Cookies.get("token")
+  useEffect(() => {
+    if (!token) {
+      navigation("/home");
+    }
+  }, []);
   console.log("query >> ", jsonData);
   useEffect(() => {
     WebViewer(
@@ -124,6 +135,9 @@ function CreateBorang(props) {
     });
   }, []);
 
+  
+
+
   return (
     <div>
       <NavBar />
@@ -136,7 +150,6 @@ function CreateBorang(props) {
         </div>
         <main className="main pt-5 pb-5 px-2" style={{ width: "83%" }}>
           <div className="d-flex align-items-center justify-content-center mb-4">
-            
             <h4 className="text-center ">Buat Borang </h4>
           </div>
           <div
