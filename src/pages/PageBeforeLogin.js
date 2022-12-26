@@ -30,7 +30,7 @@ function PageBeforeLogin() {
             {/* <h1>SICERDIK</h1>
             <h3>Tanjungpinang</h3> */}
             <img className="mb-3" src={iconSicerdikFix} alt="" width={"300px"} />
-            <h3 className="text-center">Sistem Cepat Efisien <br /> Pelayanan Peserta Didik</h3>
+            {/* <h3 className="text-center">Sistem Cepat Efisien <br /> Pelayanan Peserta Didik</h3> */}
 
             <h2 className="mt-3">Dinas Pendidikan</h2>
             <h3>Kota Tanjungpinang</h3>
