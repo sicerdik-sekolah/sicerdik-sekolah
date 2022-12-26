@@ -35,8 +35,8 @@ function NavBar() {
         </div>
 
         <div className={styles.title} onClick={() => navigate("/home")}>
-          <img src={iconSicerdik} alt="" width={"150px"} />
-          <p>Tanjungpinang</p>
+          <img src={iconSicerdik} alt="" width={"200px"} />
+          {/* <p>Tanjungpinang</p> */}
         </div>
         <div className={styles.user}>
           <p>{user}</p>

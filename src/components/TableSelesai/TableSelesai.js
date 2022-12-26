@@ -1,22 +1,21 @@
 import React from "react";
 import Table from "react-bootstrap/Table";
-import TableBody from "../TableBody/TableBody";
+import TableBodySelesai from "../TableBodySelesai/TableBodySelesai";
 import TableHeader from "../TableHeader/TableHeader";
 import { useSelector } from "react-redux";
 function TableComponent(props) {
   const tableHeader = [
     "Nomor Naskah",
-    "Hal",
     "Tanggal Naskah Masuk",
     "Nama Siswa",
-    "NISN",
-    "NIS",
-    "Nama Ortu",
+    "Nisn",
+    "Hal",
+    "Asal Sekolah",
     "Tujuan Sekolah",
-    // "Yang Menandatangani",
-    // "Status Verifikasi",
-    "Status TTD Kepsek",
-    // "Status Kirim",
+    "Yang Menandatangani",
+    "Status Verifikasi",
+    "Status Tanda Tangan",
+    "Status Kirim",
     "Aksi",
   ];
   const { data } = useSelector((state) => state.dummyData);
@@ -52,7 +51,7 @@ function TableComponent(props) {
       {props.isNeedSend && <TableBody data={dataPerluDikirim} />}
       {props.isDone && <TableBody data={dataSelesai} />} */}
       {!props.isTTD && !props.isNeedSend && !props.isDone && !props.isVerifikasi && (
-        <TableBody data={data} />
+        <TableBodySelesai data={data} />
       )}
       {/* {props.} */}
       {/* <TableBody data={data} /> */}

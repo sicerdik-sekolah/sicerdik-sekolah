@@ -12,53 +12,25 @@ function TableBody(props) {
             <tr key={idx} className="text-center align-middle">
               <td>{idx + 1}</td>
               <td>{item.nomor_laporan}</td>
+              <td>{item.hal}</td>
               <td>
                 {moment(item.tanggal_naskah_masuk).format("MMMM Do YYYY")}
               </td>
               <td>{item.nama_siswa}</td>
               <td>{item.nisn_siswa}</td>
-              <td>{item.hal}</td>
-              <td>{item.asal_sekolah}</td>
+              <td>{item.nis_siswa? item.nis_siswa : 12345}</td>
+              <td>{item.nama_orang_tua ? item.nama_orang_tua : "dummy orang tua"}</td>
               <td>{item.tujuan_sekolah}</td>
               <td>
-                {item.yang_menandatangani
-                  ? item.yang_menandatangani
-                  : "BELUM DITENTUKAN"}
-              </td>
-              <td>
                 <span
                   className="button-status px-2 py-1"
                   style={{
                     backgroundColor: `${
-                      item.status_verifikasi === false ? "#EDE300" : "#00BDAA"
+                      item.status_ttd_kepsek === false ? "#EDE300" : "#00BDAA"
                     }`,
                   }}
                 >
-                  {!item.status_verifikasi ? "BELUM" : "SUDAH"}
-                </span>
-              </td>
-              <td>
-                <span
-                  className="button-status px-2 py-1"
-                  style={{
-                    backgroundColor: `${
-                      item.status_ttd === false ? "#EDE300" : "#00BDAA"
-                    }`,
-                  }}
-                >
-                  {!item.status_ttd ? "BELUM" : "SUDAH"}
-                </span>
-              </td>
-              <td>
-                <span
-                  className="button-status px-2 py-1"
-                  style={{
-                    backgroundColor: `${
-                      item.status_kirim === false ? "#EDE300" : "#00BDAA"
-                    }`,
-                  }}
-                >
-                  {!item.status_kirim ? "BELUM" : "SUDAH"}
+                  {!item.status_ttd_kepsek ? "BELUM" : "SUDAH"}
                 </span>
               </td>
 

@@ -24,8 +24,7 @@ import { authorizationCheck } from "../utils/authRole";
 import TextAreaFormWithLabel from "../components/TextAreaFormWithLabel/TextAreaFormWithLabel";
 import ViewBorangCard from "../components/ViewBorangCard/ViewBorangCard";
 import useStateBuatLaporan from "./useStateBuatLaporan.hooks";
-import Swal from 'sweetalert2'
-
+import Swal from "sweetalert2";
 
 function BuatLaporan() {
   const navigation = useNavigate();
@@ -48,7 +47,7 @@ function BuatLaporan() {
     pekerjaan_orang_tua: "",
     alamat_orangtua: "",
     noHp_orang_tua: "",
-    tahun_lulus: new Date().getFullYear(),
+    tahun_lulus: "",
     tujuan_sekolah: "",
     tanggal_naskah: new Date(),
     nama_kepala_sekolah: "",
@@ -103,23 +102,22 @@ function BuatLaporan() {
   };
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.log(form); 
+    console.log(form);
     Swal.fire({
-      title: 'Buat Naskah Baru?',
+      title: "Buat Naskah Baru?",
       showDenyButton: true,
-      confirmButtonText: 'Buat',
+      confirmButtonText: "Buat",
       denyButtonText: `Batalkan`,
     }).then((result) => {
       /* Read more about isConfirmed, isDenied below */
       if (result.isConfirmed) {
-        Swal.fire('Naskah Telah Dibuat!', '', 'success')
+        Swal.fire("Naskah Telah Dibuat!", "", "success");
         // dispatch api
-        navigation("/home")
+        navigation("/home");
       }
-    })
+    });
   };
 
-  
   useEffect(() => {
     if (
       !form.nomor_laporan ||
@@ -152,15 +150,23 @@ function BuatLaporan() {
       setStatus(true);
     }
   }, [form]);
-  
+
   useEffect(() => {
     if (!Cookies.get("token")) {
       navigation("/login");
-      window.location.reload()
+      window.location.reload();
     }
   }, [Cookies.get("token")]);
 
-
+  useEffect(() => {
+    if (form.jenis_surat === "FORMAT_PINDAH_RAYON") {
+      window.scrollTo({
+        top: 1000,
+        left: 100,
+        behavior: "smooth",
+      });
+    }
+  }, [form.jenis_surat]);
   return (
     <>
       <NavBar />
@@ -299,17 +305,22 @@ function BuatLaporan() {
                 onChange={handleChange}
               />
               {form.jenis_surat === "FORMAT_PINDAH_RAYON" && (
-                <div>
-                  <InputFormWithLabel
-                    label={"Tahun Lulus"}
-                    type={"number"}
-                    value={form.tahun_lulus}
-                    name={"tahun_lulus"}
-                    onChange={handleChange}
-                    placeholder={"Contoh : 2020"}
-                    isRequired
-                  />
-                </div>
+                <>
+                  <div>
+                    <InputFormWithLabel
+                      label={"Tahun Lulus"}
+                      type={"number"}
+                      value={form.tahun_lulus}
+                      name={"tahun_lulus"}
+                      onChange={handleChange}
+                      placeholder={"ISI TAHUN LULUS (PENTING) Contoh : 2020"}
+                      isRequired
+                    />
+                  </div>
+                  <div className="d-flex justify-content-end">
+                  <p style={{color : "red", fontSize: "13px" , fontWeight: "900"}}>*Isi Tahun Lulus</p>
+                  </div>
+                </>
               )}
             </div>
           </FormCard>
@@ -435,7 +446,7 @@ function BuatLaporan() {
                 onChange={handleChange}
               />
               <div className="d-flex justify-content-end">
-                <p style={{ color : "#FD8A8A",fontSize: "12px" }}>
+                <p style={{ color: "#FD8A8A", fontSize: "12px" }}>
                   *Bagian ini harus diisi agar sistem secara otomatis
                   menampilkan kop surat anda
                 </p>
@@ -458,7 +469,7 @@ function BuatLaporan() {
                 onChange={handleChange}
               />
               <div className="d-flex justify-content-end">
-                <p style={{ color : "#FD8A8A",fontSize: "12px" }}>
+                <p style={{ color: "#FD8A8A", fontSize: "12px" }}>
                   *Bagian ini harus diisi agar sistem secara otomatis memasukkan
                   nama kepala sekolah dan nip nya
                 </p>
@@ -562,8 +573,13 @@ function BuatLaporan() {
               {form.jenis_surat === "FORMAT_PINDAH_RAYON" && (
                 <div>
                   {/* <ViewBorangCard label={"Surat Keterangan Lulus"} /> */}
-                  <div className=" pt-2" style={{borderTop : "1px solid #0A2966"}}>
-                    <h5 style={{fontWeight : "400"}}>Surat Keterangan Lulus</h5>
+                  <div
+                    className=" pt-2"
+                    style={{ borderTop: "1px solid #0A2966" }}
+                  >
+                    <h5 style={{ fontWeight: "400" }}>
+                      Surat Keterangan Lulus
+                    </h5>
                   </div>
                   <div className="input-group mt-2 gap-2 mx-1 d-flex flex-column">
                     <label htmlFor="">
@@ -582,8 +598,13 @@ function BuatLaporan() {
               {form.hal === "PINDAH_MASUK" && (
                 <div>
                   {/* <ViewBorangCard label={"Surat Rekomendasi Dinas Setempat"} /> */}
-                  <div className=" pt-2" style={{borderTop : "1px solid #0A2966"}}>
-                    <h5 style={{fontWeight : "400"}}>Surat Rekomendasi Dinas Setempat</h5>
+                  <div
+                    className=" pt-2"
+                    style={{ borderTop: "1px solid #0A2966" }}
+                  >
+                    <h5 style={{ fontWeight: "400" }}>
+                      Surat Rekomendasi Dinas Setempat
+                    </h5>
                   </div>
                   <div className="input-group mt-2 gap-2 mx-1 d-flex flex-column">
                     <label htmlFor="">
@@ -601,9 +622,12 @@ function BuatLaporan() {
               )}
               <div>
                 {/* <ViewBorangCard label={"Surat Lain-lain"} /> */}
-                <div className=" pt-2" style={{borderTop : "1px solid #0A2966"}}>
-                    <h5 style={{fontWeight : "400"}}>Surat Lain-Lain</h5>
-                  </div>
+                <div
+                  className=" pt-2"
+                  style={{ borderTop: "1px solid #0A2966" }}
+                >
+                  <h5 style={{ fontWeight: "400" }}>Surat Lain-Lain</h5>
+                </div>
                 <div className="input-group mt-2 gap-2 mx-1 d-flex flex-column">
                   <label htmlFor="">Upload Surat Lain-lain</label>
                   <input

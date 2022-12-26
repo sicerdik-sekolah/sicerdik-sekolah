@@ -3,7 +3,7 @@ import NavBar from "../components/NavBar/NavBar";
 import { useNavigate } from "react-router-dom";
 import Cookies from "js-cookie";
 import Footer from "../components/Footer/Footer";
-import Table from "../components/Table/Table";
+import TableSelesai from "../components/TableSelesai/TableSelesai";
 import SideBar from "../components/SideBar/SideBar";
 import { useDispatch } from "react-redux";
 import { fetchNaskah } from "../store/reducers/dummyDataSlice";
@@ -37,7 +37,7 @@ function LaporanSelesai() {
               <h2 className="pb-3">Daftar Naskah Telah Selesai</h2>
             </div>
             <div className="container table-container panel panel-default">
-              <Table isDone />
+              <TableSelesai isDone />
             </div>
           </div>
         </main>
