@@ -8,7 +8,7 @@ import {
   changeStatusTTD,
   resetError,
   updateNaskahVerifikasi,
-  sendFileDisdik,
+  updateNaskahTelahTTDKepsek,
 } from "../store/reducers/dummyDataSlice";
 import Footer from "../components/Footer/Footer";
 import NavBar from "../components/NavBar/NavBar";
@@ -184,7 +184,7 @@ function Detail() {
             denyButtonText: `Batalkan`,
           }).then((result) => {
             if (result.isConfirmed) {
-              dispatch(sendFileDisdik({ id: id, data: fileDisdik }));
+              dispatch(updateNaskahTelahTTDKepsek({ id: id, data: fileDisdik }));
               dispatch(changeStatusKirim(id));
               Swal.fire("Terkirim!", "", "success");
               navigation("/home");

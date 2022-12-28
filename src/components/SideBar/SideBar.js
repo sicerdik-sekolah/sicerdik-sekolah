@@ -19,13 +19,13 @@ function SideBar() {
         </Link>
       </div>
       <div className={`${styles.text} `}>
-        <Link to={"/reports"}>
+        <Link to={"/reports-ttd"}>
           <img src={iconLaporan} alt="" />
           <p>Naskah Perlu TTD</p>
         </Link>
       </div>
       <div className={`${styles.text} `}>
-        <Link to={"/reports-ttd"}>
+        <Link to={"/reports-send"}>
           <img src={iconTTD} alt="" />
           <p>Naskah Sudah TTD</p>
         </Link>

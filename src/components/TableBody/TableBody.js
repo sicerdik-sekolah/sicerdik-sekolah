@@ -33,6 +33,18 @@ function TableBody(props) {
                   {!item.status_ttd_kepsek ? "BELUM" : "SUDAH"}
                 </span>
               </td>
+              <td>
+                <span
+                  className="button-status px-2 py-1"
+                  style={{
+                    backgroundColor: `${
+                      item.status_kirim_dari_kepsek === false ? "#EDE300" : "#00BDAA"
+                    }`,
+                  }}
+                >
+                  {!item.status_kirim_dari_kepsek ? "BELUM" : "SUDAH"}
+                </span>
+              </td>
 
               <td>
                 {/* <Link to={`/detail/${item._id}`}> */}

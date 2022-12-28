@@ -8,7 +8,7 @@ import {
   changeStatusTTD,
   resetError,
   updateNaskahVerifikasi,
-  sendFileDisdik,
+  updateNaskahTelahTTDKepsek,
 } from "../store/reducers/dummyDataSlice";
 import Footer from "../components/Footer/Footer";
 import NavBar from "../components/NavBar/NavBar";
@@ -98,60 +98,23 @@ function DetailNaskah() {
   const handleMarkAsTTD = (id) => {
     console.log("role >>> ", roleSementara);
     console.log("file >> ", fileDisdik);
-    if (
-      /*form.role*/ roleSementara === "kasubag" ||
-      /*form.role*/ roleSementara === "sekretaris"
-    ) {
-      if (targetData.yang_menandatangani === roleSementara) {
-        Swal.fire({
-          title: "Yakin Untuk Menandatangi?",
-          showDenyButton: true,
-          showCancelButton: true,
-          confirmButtonText: "Tanda Tangan",
-          denyButtonText: `Batal`,
-        }).then((result) => {
-          /* Read more about isConfirmed, isDenied below */
-          if (result.isConfirmed) {
-            dispatch(changeStatusTTD(id));
-            Swal.fire("Berhasil di Tanda tangan!", "", "success");
-            navigation("/home");
-          } else if (result.isDenied) {
-            Swal.fire("Tidak ada perubahan", "", "info");
-          }
-        });
-        // if (formTTE.nip !== form.nip || formTTE.keyphrase !== form.keyphrase) {
-        //   Swal.fire({
-        //     icon: "error",
-        //     title: "Oops...",
-        //     text: "NIP atau KEYPHRASE Salah",
-        //   });
-        // } else if (
-        //   formTTE.nip === form.nip &&
-        //   formTTE.keyphrase === form.keyphrase
-        // ) {
-        //   Swal.fire({
-        //     title: "Yakin Untuk Menandatangi?",
-        //     showDenyButton: true,
-        //     showCancelButton: true,
-        //     confirmButtonText: "Tanda Tangan",
-        //     denyButtonText: `Batal`,
-        //   }).then((result) => {
-        //     /* Read more about isConfirmed, isDenied below */
-        //     if (result.isConfirmed) {
-        //       dispatch(changeStatusTTD(id));
-        //       Swal.fire("Berhasil di Tanda tangan!", "", "success");
-        //     } else if (result.isDenied) {
-        //       Swal.fire("Tidak ada perubahan", "", "info");
-        //     }
-        //   });
-        // }
-      } else {
-        Swal.fire({
-          icon: "error",
-          title: "Oops...",
-          text: "Anda bukanlah orang yang dipilih melakukan TTD",
-        });
-      }
+    if (/*form.role*/ roleSementara === "kepala_sekolah") {
+      Swal.fire({
+        title: "Yakin Untuk Menandatangi?",
+        showDenyButton: true,
+        showCancelButton: true,
+        confirmButtonText: "Tanda Tangan",
+        denyButtonText: `Batal`,
+      }).then((result) => {
+        /* Read more about isConfirmed, isDenied below */
+        if (result.isConfirmed) {
+          dispatch(changeStatusTTD(id));
+          Swal.fire("Berhasil di Tanda tangan!", "", "success");
+          navigation("/home");
+        } else if (result.isDenied) {
+          Swal.fire("Tidak ada perubahan", "", "info");
+        }
+      });
     } else {
       Swal.fire({
         icon: "error",
@@ -169,11 +132,10 @@ function DetailNaskah() {
 
   const handleMarkAsSended = (id) => {
     if (
-      /*form.role*/ roleSementara === "kasubag" ||
-      roleSementara === "sekretaris"
+      /*form.role*/ roleSementara === "kepala_sekolah" 
     ) {
       if (fileDisdik) {
-        if (targetData.status_ttd === true) {
+        if (targetData.status_ttd_kepsek === true) {
           Swal.fire({
             title: "Kirim Naskah?",
             showDenyButton: true,
@@ -181,10 +143,10 @@ function DetailNaskah() {
             denyButtonText: `Batalkan`,
           }).then((result) => {
             if (result.isConfirmed) {
-              dispatch(sendFileDisdik({ id: id, data: fileDisdik }));
+              dispatch(updateNaskahTelahTTDKepsek({ id: id, data: fileDisdik }));
               dispatch(changeStatusKirim(id));
               Swal.fire("Terkirim!", "", "success");
-              navigation("/home");
+              // navigation("/home");
             }
           });
         } else {
@@ -275,18 +237,26 @@ function DetailNaskah() {
                   label={"Surat Keterangan Pindah Sekolah / Rayon"}
                   pdfFile={targetData.surat_pindah}
                 />
-                <ViewSuratCard
-                  label={"Surat Keterangan Lulus"}
-                  pdfFile={targetData.surat_pindah}
-                />
-                <ViewSuratCard
-                  label={"Surat Keterangan Dinas Pendidikan Setempat"}
-                  pdfFile={targetData.surat_pindah}
-                />
-                <ViewSuratCard
-                  label={"Surat Lain-Lain"}
-                  pdfFile={`${targetData.surat_plh && targetData.surat_plh}`}
-                />
+                {targetData.surat_keterangan_lulus && (
+                  <ViewSuratCard
+                    label={"Surat Keterangan Lulus"}
+                    pdfFile={targetData.surat_keterangan_lulus}
+                  />
+                )}
+                {targetData.surat_dinas_pendidikan_setempat && (
+                  <ViewSuratCard
+                    label={"Surat Keterangan Dinas Pendidikan Setempat"}
+                    pdfFile={targetData.surat_dinas_pendidikan_setempat}
+                  />
+                )}
+                {targetData.surat_lain_lain && (
+                  <ViewSuratCard
+                    label={"Surat Lain-Lain"}
+                    pdfFile={`${
+                      targetData.surat_plh && targetData.surat_lain_lain
+                    }`}
+                  />
+                )}
               </div>
             </FormCard>
 
@@ -302,8 +272,8 @@ function DetailNaskah() {
                   />
                 </div>
               )}
-              {targetData.status_ttd === false ||
-              targetData.status_kirim === false ? (
+              {targetData.status_ttd_kepsek === false ||
+              targetData.status_kirim_dari_kepsek === false ? (
                 <>
                   <div className="mx-5 mt-3 mb-4"></div>
                   <div className="d-flex flex-row justify-content-between align-items-center mx-4 mt-3 mb-4 px-4 gap-5">
@@ -320,7 +290,7 @@ function DetailNaskah() {
 
                   <div className="mx-5 mt-3 mb-4">
                     <div className="d-flex flex-row align-items-center justify-content-between">
-                      {targetData.status_ttd === false ? (
+                      {targetData.status_ttd_kepsek === false ? (
                         <div className="formLaporanAction d-flex justify-content-end align-items-center flex-column my-4 gap-3 ">
                           <div>
                             <ButtonFormView
@@ -335,7 +305,7 @@ function DetailNaskah() {
                       ) : (
                         <p className="text-center">Sudah Di TTD </p>
                       )}
-                      {targetData.status_kirim === false ? (
+                      {targetData.status_kirim_dari_kepsek === false || !targetData.status_kirim_dari_kepsek ? (
                         <div className="formLaporanAction d-flex justify-content-end align-items-center flex-column my-4 gap-3 ">
                           <div>
                             <ButtonFormView
@@ -360,7 +330,6 @@ function DetailNaskah() {
                 </p>
               )}
             </FormCard>
-
           </main>
         </div>
       ) : (

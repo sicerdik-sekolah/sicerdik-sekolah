@@ -5,7 +5,7 @@ import { Link, useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { logout } from "../../store/reducers/loginSlice";
 import Cookies from "js-cookie";
-import iconSicerdik from '../../assets/logo-sicerdik-fix.png'
+import iconSicerdik from "../../assets/logo-sicerdik-fix.png";
 
 import { authorizationCheck } from "../../utils/authRole";
 function NavBar() {
@@ -14,11 +14,11 @@ function NavBar() {
     setShowMenu(!showMenu);
   };
   const [user, setUser] = useState(
-    authorizationCheck() == "kasubag"
-      ? "Kepala Sub Bagian"
-      : authorizationCheck() == "staff"
-      ? "Staff"
-      : "Sekretaris DISDIK"
+    authorizationCheck() == "kepala_sekolah"
+      ? "Kepala Sekolah"
+      : authorizationCheck() == "staff_sekolah"
+      ? "Staff Sekolah"
+      : "unknown"
   );
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -26,6 +26,9 @@ function NavBar() {
     dispatch(logout());
     Cookies.remove("token");
     localStorage.setItem("jabatan", "");
+    localStorage.setItem("nip", "");
+    localStorage.setItem("nama", "");
+    localStorage.setItem("tempat", "");
   };
   return (
     <header>
@@ -39,7 +42,10 @@ function NavBar() {
           {/* <p>Tanjungpinang</p> */}
         </div>
         <div className={styles.user}>
-          <p>{user}</p>
+          <div className="d-flex flex-column justify-content-center align-items-center">
+            <p>{user}</p>
+            <p>{localStorage.getItem("tempat")}</p>
+          </div>
           <div onClick={showHandleMenu}>
             <img
               className={styles.userLogo}

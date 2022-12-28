@@ -16,41 +16,38 @@ function TableComponent(props) {
     // "Yang Menandatangani",
     // "Status Verifikasi",
     "Status TTD Kepsek",
+    "Status Dikirim Kepsek",
     // "Status Kirim",
     "Aksi",
   ];
   const { data } = useSelector((state) => state.dummyData);
 
-  // const dataButuhTTD = data
-  //   .filter((item) => {
-  //     return item.status_ttd === false;
-  //   })
-  //   .map((item) => item);
+  const dataButuhTTD = data
+    .filter((item) => {
+      return item.status_ttd_kepsek === false;
+    })
+    .map((item) => item);
 
-  // const dataPerluDikirim = data
-  //   .filter((item) => {
-  //     return item.status_kirim === false;
-  //   })
-  //   .map((item) => item);
+  const dataPerluDikirim = data
+    .filter((item) => {
+      return item.status_kirim_dari_kepsek === false;
+    })
+    .map((item) => item);
 
-  // const dataSelesai = data
-  //   .filter((item) => {
-  //     return item.status_kirim === true;
-  //   })
-  //   .map((item) => item);
-  // const dataVerifikasi = data
-  //   .filter((item) => {
-  //     return item.status_verifikasi === false;
-  //   })
-  //   .map((item) => item);
-  // console.log(dataSelesai);
+  const dataSelesai = data
+    .filter((item) => {
+      return item.status_kirim_dari_kepsek === true;
+    })
+    .map((item) => item);
+  
+  console.log(dataSelesai);
   return (
     <Table responsive striped bordered>
       <TableHeader dataRow={tableHeader} />
-      {/* {props.isTTD && <TableBody data={dataButuhTTD} />}
-      {props.isVerifikasi && <TableBody data={dataVerifikasi} />}
+      {props.isTTD && <TableBody data={dataButuhTTD} />}
+      {/* {props.isVerifikasi && <TableBody data={dataVerifikasi} />} */}
       {props.isNeedSend && <TableBody data={dataPerluDikirim} />}
-      {props.isDone && <TableBody data={dataSelesai} />} */}
+      {props.isDone && <TableBody data={dataSelesai} />}
       {!props.isTTD && !props.isNeedSend && !props.isDone && !props.isVerifikasi && (
         <TableBody data={data} />
       )}

@@ -10,6 +10,7 @@ import {
   resetError,
   updateNaskahVerifikasi,
   sendFileDisdik,
+  createLaporan
 } from "../store/reducers/dummyDataSlice";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
@@ -33,7 +34,7 @@ function BuatLaporan() {
   const [roleSementara, setRoleSementara] = useState(authorizationCheck());
   const [form, setForm] = useState({
     nomor_laporan: "",
-    asal_sekolah: authorizationCheck(),
+    asal_sekolah: localStorage.getItem("tempat"),
     hal: "PINDAH_KELUAR",
     jenis_surat: "FORMAT_PINDAH_SEKOLAH",
     nama_siswa: "",
@@ -60,7 +61,7 @@ function BuatLaporan() {
     kabupatenKota_tujuan_sekolah: "",
     provinsi_tujuan_sekolah: "",
     alasan_pindah: "",
-    header_sekolah: "",
+    header_sekolah: localStorage.getItem("tempat"),
     alamat_header_sekolah: "",
     email_header_sekolah: "",
     surat_ortu: "",
@@ -112,7 +113,7 @@ function BuatLaporan() {
       /* Read more about isConfirmed, isDenied below */
       if (result.isConfirmed) {
         Swal.fire("Naskah Telah Dibuat!", "", "success");
-        // dispatch api
+        dispatch(createLaporan(form))
         navigation("/home");
       }
     });
