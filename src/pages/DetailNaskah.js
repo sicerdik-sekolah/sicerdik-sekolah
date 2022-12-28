@@ -43,16 +43,16 @@ function DetailNaskah() {
   );
   // const { form } = useSelector((state) => state.login);
   const targetData = allData.find((item) => item._id == id);
-  console.log("target data >> ", targetData);
+  // console.log("target data >> ", targetData);
   // const roleSementara = "Ketua Sub Bagian";
   const [roleSementara, setRoleSementara] = useState(authorizationCheck());
 
   const onChangeTanggalDisposisi = (e) => {
     setTanggalDisposisi(e.target.value);
-    console.log("tanggal_disposisi", tanggalDisposisi);
+    // console.log("tanggal_disposisi", tanggalDisposisi);
   };
   const handleMarkAsVerified = (id) => {
-    console.log("role >>> ", roleSementara);
+    // console.log("role >>> ", roleSementara);
     if (/*form.role*/ roleSementara === "staff") {
       Swal.fire({
         title: "Verifikasi Naskah?",
@@ -96,8 +96,8 @@ function DetailNaskah() {
   };
 
   const handleMarkAsTTD = (id) => {
-    console.log("role >>> ", roleSementara);
-    console.log("file >> ", fileDisdik);
+    // console.log("role >>> ", roleSementara);
+    // console.log("file >> ", fileDisdik);
     if (/*form.role*/ roleSementara === "kepala_sekolah") {
       Swal.fire({
         title: "Yakin Untuk Menandatangi?",
@@ -131,9 +131,7 @@ function DetailNaskah() {
   };
 
   const handleMarkAsSended = (id) => {
-    if (
-      /*form.role*/ roleSementara === "kepala_sekolah" 
-    ) {
+    if (/*form.role*/ roleSementara === "kepala_sekolah") {
       if (fileDisdik) {
         if (targetData.status_ttd_kepsek === true) {
           Swal.fire({
@@ -143,7 +141,9 @@ function DetailNaskah() {
             denyButtonText: `Batalkan`,
           }).then((result) => {
             if (result.isConfirmed) {
-              dispatch(updateNaskahTelahTTDKepsek({ id: id, data: fileDisdik }));
+              dispatch(
+                updateNaskahTelahTTDKepsek({ id: id, data: fileDisdik })
+              );
               dispatch(changeStatusKirim(id));
               Swal.fire("Terkirim!", "", "success");
               // navigation("/home");
@@ -183,7 +183,7 @@ function DetailNaskah() {
 
   const handleChangeFileDisdik = (e) => {
     setFileDisdik(e.target.files[0]);
-    console.log("file >> ", fileDisdik);
+    // console.log("file >> ", fileDisdik);
   };
 
   useEffect(() => {
@@ -305,7 +305,8 @@ function DetailNaskah() {
                       ) : (
                         <p className="text-center">Sudah Di TTD </p>
                       )}
-                      {targetData.status_kirim_dari_kepsek === false || !targetData.status_kirim_dari_kepsek ? (
+                      {targetData.status_kirim_dari_kepsek === false ||
+                      !targetData.status_kirim_dari_kepsek ? (
                         <div className="formLaporanAction d-flex justify-content-end align-items-center flex-column my-4 gap-3 ">
                           <div>
                             <ButtonFormView

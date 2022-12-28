@@ -10,7 +10,7 @@ import {
   resetError,
   updateNaskahVerifikasi,
   sendFileDisdik,
-  createLaporan
+  createLaporan,
 } from "../store/reducers/dummyDataSlice";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
@@ -103,20 +103,28 @@ function BuatLaporan() {
   };
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.log(form);
-    Swal.fire({
-      title: "Buat Naskah Baru?",
-      showDenyButton: true,
-      confirmButtonText: "Buat",
-      denyButtonText: `Batalkan`,
-    }).then((result) => {
-      /* Read more about isConfirmed, isDenied below */
-      if (result.isConfirmed) {
-        Swal.fire("Naskah Telah Dibuat!", "", "success");
-        dispatch(createLaporan(form))
-        navigation("/home");
-      }
-    });
+    // console.log(form);
+    if (authorizationCheck() === "staff_sekolah") {
+      Swal.fire({
+        title: "Buat Naskah Baru?",
+        showDenyButton: true,
+        confirmButtonText: "Buat",
+        denyButtonText: `Batalkan`,
+      }).then((result) => {
+        /* Read more about isConfirmed, isDenied below */
+        if (result.isConfirmed) {
+          Swal.fire("Naskah Telah Dibuat!", "", "success");
+          dispatch(createLaporan(form));
+          navigation("/home");
+        }
+      });
+    } else {
+      Swal.fire({
+        icon: "error",
+        title: "Oops...",
+        text: "Staff Sekolah yang harus membuat laporan!",
+      });
+    }
   };
 
   useEffect(() => {
@@ -319,7 +327,15 @@ function BuatLaporan() {
                     />
                   </div>
                   <div className="d-flex justify-content-end">
-                  <p style={{color : "red", fontSize: "13px" , fontWeight: "900"}}>*Isi Tahun Lulus</p>
+                    <p
+                      style={{
+                        color: "red",
+                        fontSize: "13px",
+                        fontWeight: "900",
+                      }}
+                    >
+                      *Isi Tahun Lulus
+                    </p>
                   </div>
                 </>
               )}

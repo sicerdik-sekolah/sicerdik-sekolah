@@ -49,9 +49,9 @@ function CreateBorang(props) {
   const tanggalMasuk = dateMasuk.getDate();
   const bulanMasuk = dapatkanBulan(dateMasuk.getMonth() + 1);
   const tahunMasuk = dateMasuk.getFullYear();
-  const header = searchParams.get("header_sekolah").toUpperCase()
+  const header = searchParams.get("header_sekolah").toUpperCase();
   const [jenisSurat, setJenisSurat] = useState(searchParams.get("jenis_surat"));
-  const asalSekolah = searchParams.get("asal_sekolah").toUpperCase()
+  const asalSekolah = searchParams.get("asal_sekolah").toUpperCase();
   const jsonData = {
     nama_orang_tua: searchParams.get("nama_orang_tua"),
     alamat_orangtua: searchParams.get("alamat_orangtua"),
@@ -79,20 +79,22 @@ function CreateBorang(props) {
     desa_tujuan_sekolah: searchParams.get("desa_tujuan_sekolah"),
     kelurahan_tujuan_sekolah: searchParams.get("kelurahan_tujuan_sekolah"),
     kecamatan_tujuan_sekolah: searchParams.get("kecamatan_tujuan_sekolah"),
-    kabupatenKota_tujuan_sekolah: searchParams.get("kabupatenKota_tujuan_sekolah"),
+    kabupatenKota_tujuan_sekolah: searchParams.get(
+      "kabupatenKota_tujuan_sekolah"
+    ),
     provinsi_tujuan_sekolah: searchParams.get("provinsi_tujuan_sekolah"),
     nama_kepala_sekolah: searchParams.get("nama_kepala_sekolah"),
     nip_kepala_sekolah: searchParams.get("nip_kepala_sekolah"),
   };
-  console.log("searchparams >> ", searchParams.get("nama_siswa"));
-  console.log("props >> ", props);
-  const token = Cookies.get("token")
+  // console.log("searchparams >> ", searchParams.get("nama_siswa"));
+  // console.log("props >> ", props);
+  const token = Cookies.get("token");
   useEffect(() => {
     if (!token) {
       navigation("/home");
     }
   }, []);
-  console.log("query >> ", jsonData);
+  // console.log("query >> ", jsonData);
   useEffect(() => {
     WebViewer(
       { path: "lib", initialDoc: `/files/${jenisSurat}.docx` },
@@ -134,9 +136,6 @@ function CreateBorang(props) {
       });
     });
   }, []);
-
-  
-
 
   return (
     <div>

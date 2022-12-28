@@ -27,7 +27,7 @@ export const dummyDataManajemenAkunSlice = createSlice({
     },
     changeStatusTTD: (state, action) => {
       const id = Number(action.payload);
-      console.log(id);
+      // console.log(id);
       if (
         state.data.find((item) => item.id === id).status_verifikasi === "SUDAH"
       ) {
