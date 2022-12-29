@@ -131,9 +131,7 @@ function DetailNaskah() {
   };
 
   const handleMarkAsSended = (id) => {
-    if (
-      /*form.role*/ roleSementara === "kepala_sekolah" 
-    ) {
+    if (/*form.role*/ roleSementara === "kepala_sekolah") {
       if (fileDisdik) {
         if (targetData.status_ttd_kepsek === true) {
           Swal.fire({
@@ -143,7 +141,9 @@ function DetailNaskah() {
             denyButtonText: `Batalkan`,
           }).then((result) => {
             if (result.isConfirmed) {
-              dispatch(updateNaskahTelahTTDKepsek({ id: id, data: fileDisdik }));
+              dispatch(
+                updateNaskahTelahTTDKepsek({ id: id, data: fileDisdik })
+              );
               dispatch(changeStatusKirim(id));
               Swal.fire("Terkirim!", "", "success");
               // navigation("/home");
@@ -278,7 +278,7 @@ function DetailNaskah() {
                   <div className="mx-5 mt-3 mb-4"></div>
                   <div className="d-flex flex-row justify-content-between align-items-center mx-4 mt-3 mb-4 px-4 gap-5">
                     <div>
-                      <p>Upload Surat Yang Telah Di Tanda Tangan</p>
+                      <p>Upload Surat Yang Telah Disetujui</p>
                       <input
                         type="file"
                         name={"filedisdik"}
@@ -298,19 +298,21 @@ function DetailNaskah() {
                               isprimary={"true"}
                             >
                               {/* Proses TTE */}
-                              Tandai telah di Tandatangani
+                              Disetujui
                             </ButtonFormView>
                           </div>
                         </div>
                       ) : (
-                        <p className="text-center">Sudah Di TTD </p>
+                        <p className="text-center">Telah Disetujui </p>
                       )}
-                      {targetData.status_kirim_dari_kepsek === false || !targetData.status_kirim_dari_kepsek ? (
+                      {targetData.status_kirim_dari_kepsek === false ||
+                      !targetData.status_kirim_dari_kepsek ? (
                         <div className="formLaporanAction d-flex justify-content-end align-items-center flex-column my-4 gap-3 ">
                           <div>
                             <ButtonFormView
-                              isinfo
+                              // isinfo
                               onClick={() => handleMarkAsSended(id)}
+                              isprimary={"true"}
                             >
                               Kirim
                             </ButtonFormView>

@@ -10,7 +10,7 @@ import {
   resetError,
   updateNaskahVerifikasi,
   sendFileDisdik,
-  createLaporan
+  createLaporan,
 } from "../store/reducers/dummyDataSlice";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
@@ -113,7 +113,7 @@ function BuatLaporan() {
       /* Read more about isConfirmed, isDenied below */
       if (result.isConfirmed) {
         Swal.fire("Naskah Telah Dibuat!", "", "success");
-        dispatch(createLaporan(form))
+        dispatch(createLaporan(form));
         navigation("/home");
       }
     });
@@ -319,7 +319,15 @@ function BuatLaporan() {
                     />
                   </div>
                   <div className="d-flex justify-content-end">
-                  <p style={{color : "red", fontSize: "13px" , fontWeight: "900"}}>*Isi Tahun Lulus</p>
+                    <p
+                      style={{
+                        color: "red",
+                        fontSize: "13px",
+                        fontWeight: "900",
+                      }}
+                    >
+                      *Isi Tahun Lulus
+                    </p>
                   </div>
                 </>
               )}
@@ -410,7 +418,7 @@ function BuatLaporan() {
             </div>
             <div className="d-flex mx-4 flex-column gap-3">
               <InputFormWithLabel
-                label={"Nomor Laporan"}
+                label={"Nomor Surat"}
                 type={"number"}
                 value={form.nomor_laporan}
                 name={"nomor_laporan"}
@@ -642,7 +650,9 @@ function BuatLaporan() {
           </FormCard>
 
           <div className="d-flex justify-content-center mx-5 mt-5">
-            <ButtonFormView type={"submit"}>Buat Laporan</ButtonFormView>
+            <ButtonFormView type={"submit"}>
+              Terbitkan Surat Pindah
+            </ButtonFormView>
           </div>
         </form>
       </div>

@@ -6,7 +6,6 @@ import { useDispatch } from "react-redux";
 import { logout } from "../../store/reducers/loginSlice";
 import Cookies from "js-cookie";
 import iconSicerdik from "../../assets/logo-sicerdik-fix.png";
-
 import { authorizationCheck } from "../../utils/authRole";
 function NavBar() {
   const [showMenu, setShowMenu] = useState(false);
@@ -17,7 +16,7 @@ function NavBar() {
     authorizationCheck() == "kepala_sekolah"
       ? "Kepala Sekolah"
       : authorizationCheck() == "staff_sekolah"
-      ? "Staff Sekolah"
+      ? "Admin Sekolah"
       : "unknown"
   );
   const dispatch = useDispatch();

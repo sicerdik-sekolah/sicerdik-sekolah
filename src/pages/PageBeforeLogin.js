@@ -29,11 +29,32 @@ function PageBeforeLogin() {
           <div className="d-flex flex-column justify-content-center align-items-center">
             {/* <h1>SICERDIK</h1>
             <h3>Tanjungpinang</h3> */}
-            <img className="mb-3" src={iconSicerdikFix} alt="" width={"300px"} />
+            <img
+              className="mb-3"
+              src={iconSicerdikFix}
+              alt=""
+              width={"300px"}
+            />
             {/* <h3 className="text-center">Sistem Cepat Efisien <br /> Pelayanan Peserta Didik</h3> */}
-
-            <h2 className="mt-3">Dinas Pendidikan</h2>
-            <h3>Kota Tanjungpinang</h3>
+            <p
+              style={{
+                fontSize: "16px",
+                color: "white",
+                fontFamily: "Poppins, sans-serif",
+                // textShadow: "0 0 3px black",
+              }}
+            >
+              <span style={{ color: "#EB455F" }}>Sistem</span>{" "}
+              <span style={{ color: "yellow" }}>Cepat</span>{" "}
+              <span style={{ color: "yellow" }}>Efisien</span>{" "}
+              <span style={{ color: "#7DE5ED" }}>Pelayanan</span>{" "}
+              <span style={{ color: "#2192FF" }}>Peserta </span>
+              <span style={{ color: "#2192FF" }}>Didik</span>
+            </p>
+            <h2 className="mt-3" style={{ marginBottom: "0" }}>
+              Dinas Pendidikan
+            </h2>
+            <h2>Kota Tanjungpinang</h2>
             <div className={"btnSection"}>
               <ButtonLogin
                 onClickHandle={handleClick}
