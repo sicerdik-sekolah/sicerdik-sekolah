@@ -44,9 +44,8 @@ export const fakeLogin = createAsyncThunk(
           data.data.data.role === "staff_sekolah"
         ) {
           return data.data;
-        }
-        else{
-          throw "akun tidak terotorisasi"
+        } else {
+          throw "akun tidak terotorisasi";
         }
       } else {
         throw "akun mati";
@@ -90,7 +89,16 @@ export const loginSlice = createSlice({
         state.isSuccess = initialState.isSuccess;
       })
       .addCase(fakeLogin.fulfilled, (state, action) => {
-        const { token, email, role, nip, tempat, nama } = action.payload.data;
+        const {
+          token,
+          email,
+          role,
+          nip,
+          tempat,
+          nama,
+          emailSurat,
+          alamatSurat,
+        } = action.payload.data;
         console.log("payload >> ", action.payload.data);
         if (role === "superadmin") {
           state.errorMessage = "Email atau Password Salah";
@@ -112,6 +120,8 @@ export const loginSlice = createSlice({
           localStorage.setItem("nip", nip);
           localStorage.setItem("nama", nama);
           localStorage.setItem("tempat", tempat);
+          localStorage.setItem("emailSurat", emailSurat);
+          localStorage.setItem("alamatSurat", alamatSurat);
           // state.form.keyphrase = keyphrase;
           state.errorMessage = initialState.errorMessage;
         }
@@ -131,7 +141,7 @@ export const loginSlice = createSlice({
       })
       .addCase(loginAdmin.fulfilled, (state, action) => {
         const { token, email, role, nip, nama, tempat } = action.payload.data;
-        console.log("payload login >>> ", action.payload.data)
+        console.log("payload login >>> ", action.payload.data);
         state.isLoading = initialState.isLoading;
         state.isSuccess = true;
         // console.log("payload >>>", action.payload);
@@ -145,7 +155,7 @@ export const loginSlice = createSlice({
             key
           ).toString();
           localStorage.setItem("jabatan", cipherRole);
-          
+
           // state.form.keyphrase = keyphrase;
           state.errorMessage = initialState.errorMessage;
         } else {

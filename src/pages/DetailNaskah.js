@@ -5,6 +5,7 @@ import { useSelector, useDispatch } from "react-redux";
 import {
   changeStatusVerifikasi,
   changeStatusKirim,
+  changeStatusKirimKepsek,
   changeStatusTTD,
   resetError,
   updateNaskahVerifikasi,
@@ -132,7 +133,39 @@ function DetailNaskah() {
 
   const handleMarkAsSended = (id) => {
     if (/*form.role*/ roleSementara === "kepala_sekolah") {
-      if (fileDisdik) {
+      if (targetData.hal === "PINDAH_KELUAR") {
+        if (fileDisdik) {
+          if (targetData.status_ttd_kepsek === true) {
+            Swal.fire({
+              title: "Kirim Naskah?",
+              showDenyButton: true,
+              confirmButtonText: "Kirim",
+              denyButtonText: `Batalkan`,
+            }).then((result) => {
+              if (result.isConfirmed) {
+                dispatch(
+                  updateNaskahTelahTTDKepsek({ id: id, data: fileDisdik })
+                );
+                // dispatch(changeStatusKirim(id));
+                Swal.fire("Terkirim!", "", "success");
+                // navigation("/home");
+              }
+            });
+          } else {
+            Swal.fire({
+              icon: "error",
+              title: "Oops...",
+              text: "Naskah belum di tandatangani",
+            });
+          }
+        } else {
+          Swal.fire({
+            icon: "error",
+            title: "Oops...",
+            text: "File Rekomendasi Belum Di Upload",
+          });
+        }
+      } else {
         if (targetData.status_ttd_kepsek === true) {
           Swal.fire({
             title: "Kirim Naskah?",
@@ -141,10 +174,10 @@ function DetailNaskah() {
             denyButtonText: `Batalkan`,
           }).then((result) => {
             if (result.isConfirmed) {
-              dispatch(
-                updateNaskahTelahTTDKepsek({ id: id, data: fileDisdik })
-              );
-              dispatch(changeStatusKirim(id));
+              // dispatch(
+              //   updateNaskahTelahTTDKepsek({ id: id, data: fileDisdik })
+              // );
+              dispatch(changeStatusKirimKepsek(id));
               Swal.fire("Terkirim!", "", "success");
               // navigation("/home");
             }
@@ -156,12 +189,6 @@ function DetailNaskah() {
             text: "Naskah belum di tandatangani",
           });
         }
-      } else {
-        Swal.fire({
-          icon: "error",
-          title: "Oops...",
-          text: "File Rekomendasi Belum Di Upload",
-        });
       }
     } else {
       Swal.fire({
@@ -233,10 +260,16 @@ function DetailNaskah() {
                   label={"Surat Permohonan Orangtua"}
                   pdfFile={targetData.surat_ortu}
                 />
-                <ViewSuratCard
-                  label={"Surat Keterangan Pindah Sekolah / Rayon"}
-                  pdfFile={targetData.surat_pindah}
-                />
+                {targetData.surat_pindah ? (
+                  <ViewSuratCard
+                    label={"Surat Keterangan Pindah Sekolah / Rayon"}
+                    pdfFile={targetData.surat_pindah}
+                  />
+                ) : (
+                  <p style={{ textAlign: "center" }}>
+                    Surat Pindah Belum Di Setujui Kepala Sekolah
+                  </p>
+                )}
                 {targetData.surat_keterangan_lulus && (
                   <ViewSuratCard
                     label={"Surat Keterangan Lulus"}
@@ -277,15 +310,21 @@ function DetailNaskah() {
                 <>
                   <div className="mx-5 mt-3 mb-4"></div>
                   <div className="d-flex flex-row justify-content-between align-items-center mx-4 mt-3 mb-4 px-4 gap-5">
-                    <div>
-                      <p>Upload Surat Yang Telah Disetujui</p>
-                      <input
-                        type="file"
-                        name={"filedisdik"}
-                        // value={fileDisdik}
-                        onChange={handleChangeFileDisdik}
-                      />
-                    </div>
+                    {targetData.hal === "PINDAH_KELUAR" ? (
+                      <div>
+                        <p>Upload Surat Yang Telah Disetujui</p>
+                        <input
+                          type="file"
+                          name={"filedisdik"}
+                          // value={fileDisdik}
+                          onChange={handleChangeFileDisdik}
+                        />
+                      </div>
+                    ) : (
+                      <p>
+                        Pastikan Surat Pindah Masuk telah Benar, lalu Setujui
+                      </p>
+                    )}
                   </div>
 
                   <div className="mx-5 mt-3 mb-4">

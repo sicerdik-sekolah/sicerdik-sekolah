@@ -62,8 +62,8 @@ function BuatLaporan() {
     provinsi_tujuan_sekolah: "",
     alasan_pindah: "",
     header_sekolah: localStorage.getItem("tempat"),
-    alamat_header_sekolah: "",
-    email_header_sekolah: "",
+    alamat_header_sekolah: localStorage.getItem("alamatSurat"),
+    email_header_sekolah: localStorage.getItem("emailSurat"),
     surat_ortu: "",
     surat_pindah_sekolah: "",
     surat_keterangan_lulus: "",
@@ -115,6 +115,7 @@ function BuatLaporan() {
         Swal.fire("Naskah Telah Dibuat!", "", "success");
         dispatch(createLaporan(form));
         navigation("/home");
+        window.location.reload();
       }
     });
   };
@@ -167,7 +168,14 @@ function BuatLaporan() {
         behavior: "smooth",
       });
     }
-  }, [form.jenis_surat]);
+    if (form.hal === "PINDAH_MASUK") {
+      window.scrollTo({
+        top: 1000,
+        left: 100,
+        behavior: "smooth",
+      });
+    }
+  }, [form.jenis_surat, form.hal]);
   return (
     <>
       <NavBar />
@@ -337,7 +345,24 @@ function BuatLaporan() {
           {/* data tujuan sekolah */}
           <FormCard>
             <div className="mx-4 mt-3 mb-4 formCardHead">
-              <h3 className="pb-3">Data Sekolah Tujuan</h3>
+              {form.hal === "PINDAH_MASUK" ? (
+                <>
+                  <h3 className="pb-3">Data Sekolah Tujuan Masuk</h3>
+                  <p
+                    style={{
+                      textAlign: "end",
+                      color: "red",
+                      fontWeight: "100",
+                      fontSize: "14px",
+                    }}
+                  >
+                    *data sekolah anda saat ini
+                  </p>
+                </>
+              ) : (
+                <h3 className="pb-3">Data Sekolah Tujuan Keluar</h3>
+              )}
+              {/* <h3 className="pb-3">Data Sekolah Tujuan Keluar</h3> */}
             </div>
             <div className="mx-4 d-flex flex-column gap-4">
               <InputFormWithLabel
@@ -416,17 +441,18 @@ function BuatLaporan() {
             <div className="mx-4 mt-3 mb-4 formCardHead">
               <h3 className="pb-3">Pilih Jenis Surat</h3>
             </div>
-            <div className="d-flex mx-4 flex-column gap-3">
-              <InputFormWithLabel
-                label={"Nomor Surat"}
-                type={"number"}
-                value={form.nomor_laporan}
-                name={"nomor_laporan"}
-                onChange={handleChange}
-                placeholder={"Contoh : 4321"}
-                isRequired
-              />
-              <InputFormWithLabel
+            {form.hal === "PINDAH_KELUAR" && (
+              <div className="d-flex mx-4 flex-column gap-3">
+                <InputFormWithLabel
+                  label={"Nomor Surat"}
+                  type={"number"}
+                  value={form.nomor_laporan}
+                  name={"nomor_laporan"}
+                  onChange={handleChange}
+                  placeholder={"Contoh : 4321"}
+                  isRequired
+                />
+                {/* <InputFormWithLabel
                 label={"Kop Surat Sekolah"}
                 placeholder={
                   "Contoh : SD NEGERI 014 TANJUNGPINANG BUKIT BESTARI"
@@ -453,37 +479,38 @@ function BuatLaporan() {
                 value={form.email_header_sekolah}
                 name={"email_header_sekolah"}
                 onChange={handleChange}
-              />
-              <div className="d-flex justify-content-end">
-                <p style={{ color: "#FD8A8A", fontSize: "12px" }}>
-                  *Bagian ini harus diisi agar sistem secara otomatis
-                  menampilkan kop surat anda
-                </p>
+              /> */}
+                <div className="d-flex justify-content-end">
+                  <p style={{ color: "#FD8A8A", fontSize: "12px" }}>
+                    *Bagian ini harus diisi agar sistem secara otomatis
+                    menampilkan kop surat anda
+                  </p>
+                </div>
+                <InputFormWithLabel
+                  label={"Nama Kepala Sekolah Asal"}
+                  placeholder={"Contoh : Muhammad Fadhil, S. Pd"}
+                  isRequired
+                  value={form.nama_kepala_sekolah}
+                  name={"nama_kepala_sekolah"}
+                  onChange={handleChange}
+                />
+                <InputFormWithLabel
+                  label={"NIP Kepala Sekolah"}
+                  type={"number"}
+                  placeholder={"Contoh : 4321"}
+                  isRequired
+                  value={form.nip_kepala_sekolah}
+                  name={"nip_kepala_sekolah"}
+                  onChange={handleChange}
+                />
+                <div className="d-flex justify-content-end">
+                  <p style={{ color: "#FD8A8A", fontSize: "12px" }}>
+                    *Bagian ini harus diisi agar sistem secara otomatis
+                    memasukkan nama kepala sekolah dan nip nya
+                  </p>
+                </div>
               </div>
-              <InputFormWithLabel
-                label={"Nama Kepala Sekolah Asal"}
-                placeholder={"Contoh : Muhammad Fadhil, S. Pd"}
-                isRequired
-                value={form.nama_kepala_sekolah}
-                name={"nama_kepala_sekolah"}
-                onChange={handleChange}
-              />
-              <InputFormWithLabel
-                label={"NIP Kepala Sekolah"}
-                type={"number"}
-                placeholder={"Contoh : 4321"}
-                isRequired
-                value={form.nip_kepala_sekolah}
-                name={"nip_kepala_sekolah"}
-                onChange={handleChange}
-              />
-              <div className="d-flex justify-content-end">
-                <p style={{ color: "#FD8A8A", fontSize: "12px" }}>
-                  *Bagian ini harus diisi agar sistem secara otomatis memasukkan
-                  nama kepala sekolah dan nip nya
-                </p>
-              </div>
-            </div>
+            )}
             <div className="d-flex justify-content-between mx-4 my-3">
               <p style={{ fontSize: "18px", flex: "0.245" }} className="">
                 Hal :
@@ -539,14 +566,16 @@ function BuatLaporan() {
             </div>
             <div className="mx-4 d-flex flex-column gap-4">
               <div>
-                <ViewBorangCard
-                  label={"Surat Permohonan Orangtua"}
-                  status={status}
-                  allData={{
-                    ...form,
-                    jenis_surat: "FORMAT_SURAT_PERMOHONAN_ORTU",
-                  }}
-                />
+                {form.hal === "PINDAH_KELUAR" && (
+                  <ViewBorangCard
+                    label={"Surat Permohonan Orangtua"}
+                    status={status}
+                    allData={{
+                      ...form,
+                      jenis_surat: "FORMAT_SURAT_PERMOHONAN_ORTU",
+                    }}
+                  />
+                )}
                 <div className="input-group mt-2 gap-2 mx-1 d-flex flex-column">
                   <label htmlFor="">
                     Upload Surat Permohonan Orangtua{" "}
@@ -561,23 +590,32 @@ function BuatLaporan() {
                 </div>
               </div>
               <div>
-                <ViewBorangCard
-                  label={"Surat Keterangan Pindah"}
-                  status={status}
-                  allData={form}
-                />
-                <div className="input-group mt-2 gap-2 mx-1 d-flex flex-column">
-                  <label htmlFor="">
-                    Upload Surat Keterangan Pindah{" "}
-                    <span style={{ color: "red" }}>*</span>
-                  </label>
-                  <input
-                    type="file"
-                    required
-                    onChange={handleChange}
-                    name={"surat_pindah_sekolah"}
+                {form.hal === "PINDAH_KELUAR" && (
+                  <ViewBorangCard
+                    label={"Surat Keterangan Pindah"}
+                    status={status}
+                    allData={form}
                   />
-                </div>
+                )}
+                {form.hal === "PINDAH_MASUK" ? (
+                  <div className="input-group mt-2 gap-2 mx-1 d-flex flex-column">
+                    <label htmlFor="">
+                      Upload Surat Keterangan Pindah{" "}
+                      <span style={{ color: "red" }}>*</span>
+                    </label>
+                    <input
+                      type="file"
+                      required
+                      onChange={handleChange}
+                      name={"surat_pindah_sekolah"}
+                    />
+                  </div>
+                ) : (
+                  <p>
+                    *Cetak Surat dan Berikan Pada Kepala Sekolah untuk Diupload
+                    dan di TTD
+                  </p>
+                )}
               </div>
               {form.jenis_surat === "FORMAT_PINDAH_RAYON" && (
                 <div>
