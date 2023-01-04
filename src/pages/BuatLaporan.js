@@ -441,18 +441,19 @@ function BuatLaporan() {
             <div className="mx-4 mt-3 mb-4 formCardHead">
               <h3 className="pb-3">Pilih Jenis Surat</h3>
             </div>
-            {form.hal === "PINDAH_KELUAR" && (
-              <div className="d-flex mx-4 flex-column gap-3">
-                <InputFormWithLabel
-                  label={"Nomor Surat"}
-                  type={"number"}
-                  value={form.nomor_laporan}
-                  name={"nomor_laporan"}
-                  onChange={handleChange}
-                  placeholder={"Contoh : 4321"}
-                  isRequired
-                />
-                {/* <InputFormWithLabel
+            <div className="d-flex mx-4 flex-column gap-3">
+              <InputFormWithLabel
+                label={"Nomor Surat"}
+                type={"number"}
+                value={form.nomor_laporan}
+                name={"nomor_laporan"}
+                onChange={handleChange}
+                placeholder={"Contoh : 4321"}
+                isRequired
+              />
+              {form.hal === "PINDAH_KELUAR" && (
+                <>
+                  {/* <InputFormWithLabel
                 label={"Kop Surat Sekolah"}
                 placeholder={
                   "Contoh : SD NEGERI 014 TANJUNGPINANG BUKIT BESTARI"
@@ -480,37 +481,38 @@ function BuatLaporan() {
                 name={"email_header_sekolah"}
                 onChange={handleChange}
               /> */}
-                <div className="d-flex justify-content-end">
-                  <p style={{ color: "#FD8A8A", fontSize: "12px" }}>
-                    *Bagian ini harus diisi agar sistem secara otomatis
-                    menampilkan kop surat anda
-                  </p>
-                </div>
-                <InputFormWithLabel
-                  label={"Nama Kepala Sekolah Asal"}
-                  placeholder={"Contoh : Muhammad Fadhil, S. Pd"}
-                  isRequired
-                  value={form.nama_kepala_sekolah}
-                  name={"nama_kepala_sekolah"}
-                  onChange={handleChange}
-                />
-                <InputFormWithLabel
-                  label={"NIP Kepala Sekolah"}
-                  type={"number"}
-                  placeholder={"Contoh : 4321"}
-                  isRequired
-                  value={form.nip_kepala_sekolah}
-                  name={"nip_kepala_sekolah"}
-                  onChange={handleChange}
-                />
-                <div className="d-flex justify-content-end">
-                  <p style={{ color: "#FD8A8A", fontSize: "12px" }}>
-                    *Bagian ini harus diisi agar sistem secara otomatis
-                    memasukkan nama kepala sekolah dan nip nya
-                  </p>
-                </div>
-              </div>
-            )}
+                  <div className="d-flex justify-content-end">
+                    <p style={{ color: "#FD8A8A", fontSize: "12px" }}>
+                      *Bagian ini harus diisi agar sistem secara otomatis
+                      menampilkan kop surat anda
+                    </p>
+                  </div>
+                  <InputFormWithLabel
+                    label={"Nama Kepala Sekolah Asal"}
+                    placeholder={"Contoh : Muhammad Fadhil, S. Pd"}
+                    isRequired
+                    value={form.nama_kepala_sekolah}
+                    name={"nama_kepala_sekolah"}
+                    onChange={handleChange}
+                  />
+                  <InputFormWithLabel
+                    label={"NIP Kepala Sekolah"}
+                    type={"number"}
+                    placeholder={"Contoh : 4321"}
+                    isRequired
+                    value={form.nip_kepala_sekolah}
+                    name={"nip_kepala_sekolah"}
+                    onChange={handleChange}
+                  />
+                  <div className="d-flex justify-content-end">
+                    <p style={{ color: "#FD8A8A", fontSize: "12px" }}>
+                      *Bagian ini harus diisi agar sistem secara otomatis
+                      memasukkan nama kepala sekolah dan nip nya
+                    </p>
+                  </div>
+                </>
+              )}
+            </div>
             <div className="d-flex justify-content-between mx-4 my-3">
               <p style={{ fontSize: "18px", flex: "0.245" }} className="">
                 Hal :
