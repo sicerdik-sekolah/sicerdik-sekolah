@@ -24,6 +24,7 @@ import BuatLaporan from "./pages/BuatLaporan";
 import CreateBorang from "./pages/CreateBorang"
 import DetailNaskah from "./pages/DetailNaskah";
 import Cookies from "js-cookie";
+import LaporanDitolak from "./pages/LaporanDitolak";
 function App() {
   const [instance, setInstance] = useState();
   
@@ -42,6 +43,7 @@ function App() {
             element={<LaporanPerluVerifikasi />}
           />
           <Route path="/reports-send" element={<LaporanPerluDikirim />} />
+          <Route path="/reports-rejected" element={<LaporanDitolak />} />
           <Route path="/reports-revisi" element={<LaporanPerluRevisi />} />
           <Route path="/reports-done" element={<LaporanSelesai />} />
           <Route path="/login" element={<Login />} />

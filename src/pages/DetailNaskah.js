@@ -250,128 +250,154 @@ function DetailNaskah() {
           >
             <SideBar />
           </div>
-          <main className="main pt-5 pb-5 px-3" style={{ width: "83%" }}>
-            <FormCard>
-              <div className="mx-4 mt-3 mb-4 formCardHead">
-                <h3 className="pb-3">File-File Naskah id-{id}</h3>
-              </div>
-              <div className="mx-5 mt-3 mb-4">
-                <ViewSuratCard
-                  label={"Surat Permohonan Orangtua"}
-                  pdfFile={targetData.surat_ortu}
-                />
-                {targetData.surat_pindah ? (
-                  <ViewSuratCard
-                    label={"Surat Keterangan Pindah Sekolah / Rayon"}
-                    pdfFile={targetData.surat_pindah}
-                  />
-                ) : (
-                  <p style={{ textAlign: "center" }}>
-                    Surat Pindah Belum Di Setujui Kepala Sekolah
-                  </p>
-                )}
-                {targetData.surat_keterangan_lulus && (
-                  <ViewSuratCard
-                    label={"Surat Keterangan Lulus"}
-                    pdfFile={targetData.surat_keterangan_lulus}
-                  />
-                )}
-                {targetData.surat_dinas_pendidikan_setempat && (
-                  <ViewSuratCard
-                    label={"Surat Keterangan Dinas Pendidikan Setempat"}
-                    pdfFile={targetData.surat_dinas_pendidikan_setempat}
-                  />
-                )}
-                {targetData.surat_lain_lain && (
-                  <ViewSuratCard
-                    label={"Surat Lain-Lain"}
-                    pdfFile={`${
-                      targetData.surat_plh && targetData.surat_lain_lain
-                    }`}
-                  />
-                )}
-              </div>
-            </FormCard>
-
-            <FormCard>
-              <div className="mx-4 mt-3 mb-4 formCardHead">
-                <h3 className="pb-3">Form Tanda Tangan {"(TTD)"}</h3>
-              </div>
-              {targetData.surat_disdik && (
+          {!targetData.status_ditolak && (
+            <main className="main pt-5 pb-5 px-3" style={{ width: "83%" }}>
+              <FormCard>
+                <div className="mx-4 mt-3 mb-4 formCardHead">
+                  <h3 className="pb-3">File-File Naskah id-{id}</h3>
+                </div>
                 <div className="mx-5 mt-3 mb-4">
                   <ViewSuratCard
-                    label={"Surat Rekomendasi DISDIK"}
-                    pdfFile={targetData.surat_disdik}
+                    label={"Surat Permohonan Orangtua"}
+                    pdfFile={targetData.surat_ortu}
                   />
+                  {targetData.surat_pindah ? (
+                    <ViewSuratCard
+                      label={"Surat Keterangan Pindah Sekolah / Rayon"}
+                      pdfFile={targetData.surat_pindah}
+                    />
+                  ) : (
+                    <p style={{ textAlign: "center" }}>
+                      Surat Pindah Belum Di Setujui Kepala Sekolah
+                    </p>
+                  )}
+                  {targetData.surat_keterangan_lulus && (
+                    <ViewSuratCard
+                      label={"Surat Keterangan Lulus"}
+                      pdfFile={targetData.surat_keterangan_lulus}
+                    />
+                  )}
+                  {targetData.surat_dinas_pendidikan_setempat && (
+                    <ViewSuratCard
+                      label={"Surat Keterangan Dinas Pendidikan Setempat"}
+                      pdfFile={targetData.surat_dinas_pendidikan_setempat}
+                    />
+                  )}
+                  {targetData.surat_lain_lain && (
+                    <ViewSuratCard
+                      label={"Surat Lain-Lain"}
+                      pdfFile={`${
+                        targetData.surat_plh && targetData.surat_lain_lain
+                      }`}
+                    />
+                  )}
                 </div>
-              )}
-              {targetData.status_ttd_kepsek === false ||
-              targetData.status_kirim_dari_kepsek === false ? (
-                <>
-                  <div className="mx-5 mt-3 mb-4"></div>
-                  <div className="d-flex flex-row justify-content-between align-items-center mx-4 mt-3 mb-4 px-4 gap-5">
-                    {targetData.hal === "PINDAH_KELUAR" ? (
-                      <div>
-                        <p>Upload Surat Yang Telah Disetujui</p>
-                        <input
-                          type="file"
-                          name={"filedisdik"}
-                          // value={fileDisdik}
-                          onChange={handleChangeFileDisdik}
-                        />
-                      </div>
-                    ) : (
-                      <p>
-                        Pastikan Surat Pindah Masuk telah Benar, lalu Setujui
-                      </p>
-                    )}
-                  </div>
+              </FormCard>
 
+              <FormCard>
+                <div className="mx-4 mt-3 mb-4 formCardHead">
+                  <h3 className="pb-3">Form Tanda Tangan {"(TTD)"}</h3>
+                </div>
+                {targetData.surat_disdik && (
                   <div className="mx-5 mt-3 mb-4">
-                    <div className="d-flex flex-row align-items-center justify-content-between">
-                      {targetData.status_ttd_kepsek === false ? (
-                        <div className="formLaporanAction d-flex justify-content-end align-items-center flex-column my-4 gap-3 ">
-                          <div>
-                            <ButtonFormView
-                              onClick={() => handleMarkAsTTD(id)}
-                              isprimary={"true"}
-                            >
-                              {/* Proses TTE */}
-                              Disetujui
-                            </ButtonFormView>
-                          </div>
+                    <ViewSuratCard
+                      label={"Surat Rekomendasi DISDIK"}
+                      pdfFile={targetData.surat_disdik}
+                    />
+                  </div>
+                )}
+                {targetData.status_ttd_kepsek === false ||
+                targetData.status_kirim_dari_kepsek === false ? (
+                  <>
+                    <div className="mx-5 mt-3 mb-4"></div>
+                    <div className="d-flex flex-row justify-content-between align-items-center mx-4 mt-3 mb-4 px-4 gap-5">
+                      {targetData.hal === "PINDAH_KELUAR" ? (
+                        <div>
+                          <p>Upload Surat Yang Telah Disetujui</p>
+                          <input
+                            type="file"
+                            name={"filedisdik"}
+                            // value={fileDisdik}
+                            onChange={handleChangeFileDisdik}
+                          />
                         </div>
                       ) : (
-                        <p className="text-center">Telah Disetujui </p>
-                      )}
-                      {targetData.status_kirim_dari_kepsek === false ||
-                      !targetData.status_kirim_dari_kepsek ? (
-                        <div className="formLaporanAction d-flex justify-content-end align-items-center flex-column my-4 gap-3 ">
-                          <div>
-                            <ButtonFormView
-                              // isinfo
-                              onClick={() => handleMarkAsSended(id)}
-                              isprimary={"true"}
-                            >
-                              Kirim
-                            </ButtonFormView>
-                          </div>
-                        </div>
-                      ) : (
-                        <p className="d-flex justify-content-center align-items-center text-status-form mt-5 mb-0">
-                          SUDAH DIKIRIM
+                        <p>
+                          Pastikan Surat Pindah Masuk telah Benar, lalu Setujui
                         </p>
                       )}
                     </div>
-                  </div>
-                </>
-              ) : (
-                <p className="d-flex justify-content-center align-items-center text-status-form mt-5 mb-0">
-                  SUDAH DI TANDATANGANI DAN DI KIRIM DARI SEKOLAH
+
+                    <div className="mx-5 mt-3 mb-4">
+                      <div className="d-flex flex-row align-items-center justify-content-between">
+                        {targetData.status_ttd_kepsek === false ? (
+                          <div className="formLaporanAction d-flex justify-content-end align-items-center flex-column my-4 gap-3 ">
+                            <div>
+                              <ButtonFormView
+                                onClick={() => handleMarkAsTTD(id)}
+                                isprimary={"true"}
+                              >
+                                {/* Proses TTE */}
+                                Disetujui
+                              </ButtonFormView>
+                            </div>
+                          </div>
+                        ) : (
+                          <p className="text-center">Telah Disetujui </p>
+                        )}
+                        {targetData.status_kirim_dari_kepsek === false ||
+                        !targetData.status_kirim_dari_kepsek ? (
+                          <div className="formLaporanAction d-flex justify-content-end align-items-center flex-column my-4 gap-3 ">
+                            <div>
+                              <ButtonFormView
+                                // isinfo
+                                onClick={() => handleMarkAsSended(id)}
+                                isprimary={"true"}
+                              >
+                                Kirim
+                              </ButtonFormView>
+                            </div>
+                          </div>
+                        ) : (
+                          <p className="d-flex justify-content-center align-items-center text-status-form mt-5 mb-0">
+                            SUDAH DIKIRIM
+                          </p>
+                        )}
+                      </div>
+                    </div>
+                  </>
+                ) : (
+                  <p className="d-flex justify-content-center align-items-center text-status-form mt-5 mb-0">
+                    SUDAH DI TANDATANGANI DAN DI KIRIM DARI SEKOLAH
+                  </p>
+                )}
+              </FormCard>
+            </main>
+          )}
+          {targetData.status_ditolak && (
+            <main className="main pt-5 pb-5 px-3" style={{ width: "83%" }}>
+              <div className="container d-flex flex-column justify-content-center align-items-center bg-white border">
+                <p className="fw-bolder">DITOLAK DENGAN ALASAN</p>
+                <p>
+                  Ditolak dari DISDIK pada tahap
+                  {targetData.komentar_ditolak_verifikasi &&
+                    ` Verfikasi dengan alasan penolakan yaitu : `}
+                  {targetData.komentar_ditolak_ttd &&
+                    ` TTD oleh DISDIK dengan alasan penolakan yaitu : `}
+                  {targetData.komentar_ditolak_verifikasi && (
+                    <p className="text-center text-danger fw-bold">
+                      {targetData.komentar_ditolak_verifikasi}
+                    </p>
+                  )}
+                  {targetData.komentar_ditolak_ttd && (
+                    <p className="text-center text-danger fw-bold">
+                      {targetData.komentar_ditolak_ttd}
+                    </p>
+                  )}
                 </p>
-              )}
-            </FormCard>
-          </main>
+              </div>
+            </main>
+          )}
         </div>
       ) : (
         navigation("/home")

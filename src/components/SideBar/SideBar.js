@@ -7,7 +7,7 @@ import iconVerify from "../../assets/icon-verify.png";
 import iconRevisi from "../../assets/icon-revisi.png";
 import iconKirim from "../../assets/icon-sidebar-kirim.png";
 import iconSelesai from "../../assets/icon-sidebar-selesai.png";
-
+import iconReject from "../../assets/icon-sidebar-reject.png"
 import styles from "./SideBar.module.css";
 function SideBar() {
   return (
@@ -34,6 +34,12 @@ function SideBar() {
         <Link to={"/reports-done"}>
           <img src={iconSelesai} alt="" />
           <p>Naskah Selesai</p>
+        </Link>
+      </div>
+      <div className={`${styles.text} `}>
+        <Link to={"/reports-rejected"}>
+          <img src={iconReject} alt="" />
+          <p>Naskah Ditolak</p>
         </Link>
       </div>
       

@@ -18,19 +18,29 @@ function TableBody(props) {
               </td>
               <td>{item.nama_siswa}</td>
               <td>{item.nisn_siswa}</td>
-              <td>{item.nis_siswa? item.nis_siswa : 12345}</td>
-              <td>{item.nama_orang_tua ? item.nama_orang_tua : "dummy orang tua"}</td>
+              <td>{item.nis_siswa ? item.nis_siswa : 12345}</td>
+              <td>
+                {item.nama_orang_tua ? item.nama_orang_tua : "dummy orang tua"}
+              </td>
               <td>{item.tujuan_sekolah}</td>
               <td>
                 <span
                   className="button-status px-2 py-1"
                   style={{
                     backgroundColor: `${
-                      item.status_ttd_kepsek === false ? "#EDE300" : "#00BDAA"
+                      item.status_ditolak
+                        ? "#F55050"
+                        : item.status_ttd_kepsek === false
+                        ? "#EDE300"
+                        : "#00BDAA"
                     }`,
                   }}
                 >
-                  {!item.status_ttd_kepsek ? "BELUM" : "SUDAH"}
+                  {item.status_ditolak
+                    ? "DITOLAK"
+                    : !item.status_ttd_kepsek
+                    ? "BELUM"
+                    : "SUDAH"}
                 </span>
               </td>
               <td>
@@ -38,11 +48,19 @@ function TableBody(props) {
                   className="button-status px-2 py-1"
                   style={{
                     backgroundColor: `${
-                      item.status_kirim_dari_kepsek === false ? "#EDE300" : "#00BDAA"
+                      item.status_ditolak
+                        ? "#F55050"
+                        : item.status_kirim_dari_kepsek === false
+                        ? "#EDE300"
+                        : "#00BDAA"
                     }`,
                   }}
                 >
-                  {!item.status_kirim_dari_kepsek ? "BELUM" : "SUDAH"}
+                  {item.status_ditolak
+                    ? "DITOLAK"
+                    : !item.status_kirim_dari_kepsek
+                    ? "BELUM"
+                    : "SUDAH"}
                 </span>
               </td>
 
