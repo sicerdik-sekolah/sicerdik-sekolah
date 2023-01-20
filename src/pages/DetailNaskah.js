@@ -148,7 +148,7 @@ function DetailNaskah() {
                 );
                 // dispatch(changeStatusKirim(id));
                 Swal.fire("Terkirim!", "", "success");
-                // navigation("/home");
+                navigation("/home");
               }
             });
           } else {

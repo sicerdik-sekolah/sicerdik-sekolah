@@ -21,24 +21,25 @@ function TableComponent(props) {
     "Aksi",
   ];
   const { data } = useSelector((state) => state.dummyData);
-
-  const dataButuhTTD = data
+  const dataReverse = [...data].reverse()
+  console.log("data >>>>",dataReverse);
+  const dataButuhTTD = data ? [...data].reverse()
     .filter((item) => {
       return item.status_ttd_kepsek === false;
     })
-    .map((item) => item);
+    .map((item) => item): [];
 
-  const dataPerluDikirim = data
+  const dataPerluDikirim = data ? [...data].reverse()
     .filter((item) => {
       return item.status_kirim_dari_kepsek === false;
     })
-    .map((item) => item);
+    .map((item) => item): [];
 
-  const dataSelesai = data
+  const dataSelesai = data ? [...data].reverse()
     .filter((item) => {
       return item.status_kirim_dari_kepsek === true;
     })
-    .map((item) => item);
+    .map((item) => item) : [];
   
   console.log(dataSelesai);
   return (
@@ -49,7 +50,7 @@ function TableComponent(props) {
       {props.isNeedSend && <TableBody data={dataPerluDikirim} />}
       {props.isDone && <TableBody data={dataSelesai} />}
       {!props.isTTD && !props.isNeedSend && !props.isDone && !props.isVerifikasi && (
-        <TableBody data={data} />
+        <TableBody data={dataReverse} />
       )}
       {/* {props.} */}
       {/* <TableBody data={data} /> */}

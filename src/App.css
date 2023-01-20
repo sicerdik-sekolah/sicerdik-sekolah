@@ -362,3 +362,70 @@ label.label-select-akun {
   font-family: "Poppins", sans-serif;
   font-size: 18px;
 }
+
+
+.headerKop{
+  padding-bottom: 15px;
+  border-bottom: 3px double black;
+}
+.headerKop div{}
+.headerKop div h5{
+  font-weight: bold;
+  margin: 0;
+  margin-bottom: 2px;
+  font-size: 18px;
+  letter-spacing: 2px;
+}
+.headerKop .pemkob{
+  width: 140px;
+}
+
+.headerKop img{
+  /* object-fit: cover; */
+}
+.headerKop div p{
+  font-size: 15px;
+  margin: 0;
+}
+.borang .titleBorang p{
+  margin: 0;
+  font-size: 16px;
+}
+.borang .titleBorang p.title{
+  text-decoration: underline;
+  margin: 0;
+  letter-spacing: 3px;
+}
+.borang .content p{
+  /* width: 80%; */
+  /* word-spacing: 15px; */
+  font-size: 14px;
+  /* padding: 2rem; */
+}
+.borang .contentOrtu p{
+  /* width: 80%; */
+  /* word-spacing: 15px; */
+  font-size: 14px;
+  /* padding: 2rem; */
+  line-height: 8px;
+}
+.borang .contentData div span.nameSiswa{
+  margin-right: 7rem;
+}
+.borang .contentData div span.ttl{
+  margin-right: 0.8rem;
+}
+
+.ttdBorang p{
+  font-size: 14px;
+}
+.ttdBorangOrtu p{
+  font-size: 14px;
+  line-height: 5px;
+}
+
+.tujuanSuratOrtu p{
+  margin: 0;
+  line-height: 15px;
+  font-size: 14px;
+}

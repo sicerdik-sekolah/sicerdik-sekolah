@@ -17,12 +17,14 @@ function Home() {
     dispatch(fetchNaskah());
   }, []);
 
+  // const navigation = useNavigate()
+  const token = Cookies.get("token")
   useEffect(() => {
-    if (!Cookies.get("token")) {
-      navigation("/login");
-      window.location.reload();
+    if(!token){
+      navigation("/")
+      window.location.reload()
     }
-  }, [Cookies.get("token")]);
+  })
 
   // useEffect(() => {
   //   dispatch(fetchNaskah());

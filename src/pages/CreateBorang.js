@@ -1,7 +1,9 @@
 import WebViewer from "@pdftron/webviewer";
 import NavBar from "../components/NavBar/NavBar";
-import Footer from "../components/Footer/Footer";
+import jsPDF from "jspdf";
 import SideBar from "../components/SideBar/SideBar";
+import { useReactToPrint } from "react-to-print";
+import Button from "../components/ButtonFormView/ButtonFormView"
 import { useEffect, useRef } from "react";
 import {
   useParams,
@@ -12,33 +14,11 @@ import {
 import Cookies from "js-cookie";
 import moment from "moment/moment";
 import { useState } from "react";
-function dapatkanBulan(angka) {
-  if (angka == 1) {
-    return "Januari";
-  } else if (angka == 2) {
-    return "Februari";
-  } else if (angka == 3) {
-    return "Maret";
-  } else if (angka == 4) {
-    return "April";
-  } else if (angka == 5) {
-    return "Mei";
-  } else if (angka == 6) {
-    return "Juni";
-  } else if (angka == 7) {
-    return "Juli";
-  } else if (angka == 8) {
-    return "Agustus";
-  } else if (angka == 9) {
-    return "September";
-  } else if (angka == 10) {
-    return "Oktober";
-  } else if (angka == 11) {
-    return "November";
-  } else if (angka == 12) {
-    return "Desember";
-  }
-}
+import dapatkanBulan from "../utils/getMonth";
+import SuratPindahSekolahKeluar from "../components/TemplateBorang/SuratPindahSekolahKeluar/SuratPindahSekolahKeluar";
+import ButtonFormView from "../components/ButtonFormView/ButtonFormView";
+import SuratPindahRayonKeluar from "../components/TemplateBorang/SuratPindahRayonKeluar/SuratPindahRayonKeluar";
+import SuratPermohonanOrangTua from "../components/TemplateBorang/SuratPermohonanOrangTua/SuratPermohonanOrangTua";
 
 function CreateBorang(props) {
   const viewer = useRef(null);
@@ -49,9 +29,9 @@ function CreateBorang(props) {
   const tanggalMasuk = dateMasuk.getDate();
   const bulanMasuk = dapatkanBulan(dateMasuk.getMonth() + 1);
   const tahunMasuk = dateMasuk.getFullYear();
-  const header = searchParams.get("header_sekolah").toUpperCase()
+  const header = searchParams.get("header_sekolah").toUpperCase();
   const [jenisSurat, setJenisSurat] = useState(searchParams.get("jenis_surat"));
-  const asalSekolah = searchParams.get("asal_sekolah").toUpperCase()
+  const asalSekolah = searchParams.get("asal_sekolah").toUpperCase();
   const jsonData = {
     nama_orang_tua: searchParams.get("nama_orang_tua"),
     alamat_orangtua: searchParams.get("alamat_orangtua"),
@@ -79,64 +59,42 @@ function CreateBorang(props) {
     desa_tujuan_sekolah: searchParams.get("desa_tujuan_sekolah"),
     kelurahan_tujuan_sekolah: searchParams.get("kelurahan_tujuan_sekolah"),
     kecamatan_tujuan_sekolah: searchParams.get("kecamatan_tujuan_sekolah"),
-    kabupatenKota_tujuan_sekolah: searchParams.get("kabupatenKota_tujuan_sekolah"),
+    kabupatenKota_tujuan_sekolah: searchParams.get(
+      "kabupatenKota_tujuan_sekolah"
+    ),
     provinsi_tujuan_sekolah: searchParams.get("provinsi_tujuan_sekolah"),
     nama_kepala_sekolah: searchParams.get("nama_kepala_sekolah"),
     nip_kepala_sekolah: searchParams.get("nip_kepala_sekolah"),
   };
   console.log("searchparams >> ", searchParams.get("nama_siswa"));
   console.log("props >> ", props);
-  const token = Cookies.get("token")
+  const token = Cookies.get("token");
   useEffect(() => {
     if (!token) {
       navigation("/home");
     }
   }, []);
   console.log("query >> ", jsonData);
-  useEffect(() => {
-    WebViewer(
-      { path: "lib", initialDoc: `/files/${jenisSurat}.docx` },
-      viewer.current
-    ).then((instance) => {
-      instance.UI.disableElements(["toolbarGroup-Shapes"]);
-      instance.UI.disableElements(["toolbarGroup-Edit"]);
-      instance.UI.disableElements(["toolbarGroup-Insert"]);
-      instance.UI.disableElements(["toolbarGroup-View"]);
-      instance.UI.disableElements(["toolbarGroup-Annotate"]);
-      instance.UI.disableElements(["toolbarGroup-Forms"]);
-      instance.UI.disableElements(["toolbarGroup-Button"]);
-      instance.UI.disableElements(["toolbarGroup-FillAndSign"]);
-      instance.UI.disableElements(["signatureToolGroupButton"]);
-      instance.UI.disableElements(["notesPanel"]);
-      instance.UI.disableElements(["viewControlsButton"]);
-      instance.UI.disableElements(["selectToolButton"]);
-      instance.UI.disableElements(["toggleNotesButton"]);
-      instance.UI.disableElements(["searchButton"]);
-      instance.UI.disableElements(["freeTextToolGroupButton"]);
-      instance.UI.disableElements(["crossStampToolButton"]);
-      instance.UI.disableElements(["checkStampToolButton"]);
-      instance.UI.disableElements(["rubberStampToolGroupButton"]);
-      instance.UI.disableElements(["dateFreeTextToolButton"]);
-      instance.UI.disableElements(["eraserToolButton"]);
-      instance.UI.disableElements(["panToolButton"]);
-      instance.UI.disableElements(["signatureToolGroupButton"]);
-      instance.UI.disableElements(["viewControlsOverlay"]);
-      instance.UI.disableElements(["ribbons"]);
-      instance.UI.disableElements(["tools"]);
-      instance.UI.disableElements(["headerItems"]);
-      instance.UI.disableElements(["toolsHeader"]);
-      const { documentViewer } = instance.Core;
 
-      documentViewer.addEventListener("documentLoaded", async () => {
-        await documentViewer.getDocument().documentCompletePromise();
-        documentViewer.updateView();
-        await documentViewer.getDocument().applyTemplateValues(jsonData);
-      });
+  const printArea = useRef()
+  const handlePrint = useReactToPrint({
+    content: () => printArea.current,
+    documentTitle: "emp-data",
+  });
+  const handleDownload = () => {
+    console.log("downloadingg");
+    // const doc = new jsPDF("p", "pt", "a4");
+    const doc = new jsPDF({
+      orientation: "potrait",
+      unit: "px",
+      format: "a4",
     });
-  }, []);
-
-  
-
+    doc.html(document.getElementById("content"), {
+      callback: (pdf) => {
+        pdf.save("File.pdf");
+      },
+    });
+  };
 
   return (
     <div>
@@ -149,19 +107,33 @@ function CreateBorang(props) {
           <SideBar />
         </div>
         <main className="main pt-5 pb-5 px-2" style={{ width: "83%" }}>
-          <div className="d-flex align-items-center justify-content-center mb-4">
+          <div className="d-flex align-items-center justify-content-center align-items-start mb-4">
             <h4 className="text-center ">Buat Borang </h4>
+          </div>
+          <div className="container d-flex justify-content-center mb-3">
+          <ButtonFormView onClick={handlePrint}>Cetak Borang</ButtonFormView>
           </div>
           <div
             className="webviewer"
             ref={viewer}
             style={{
-              height: "100vh",
-
+              backgroundColor: "white",
+              // height: "100vh",
+              padding: "2rem",
+              paddingRight: "6rem",
+              paddingLeft: "6rem",
               justifyContent: "center",
               alignItems: "center",
             }}
-          ></div>
+          >
+            <div ref={printArea} id="content" style={{padding: "1rem 2rem"}}>
+              {jenisSurat === "FORMAT_PINDAH_SEKOLAH" && <SuratPindahSekolahKeluar data={jsonData} />}
+              {jenisSurat === "FORMAT_PINDAH_RAYON" && <SuratPindahRayonKeluar data={jsonData} />}
+              {jenisSurat === "FORMAT_SURAT_PERMOHONAN_ORTU" && <SuratPermohonanOrangTua data={jsonData} />}
+            </div>
+          </div>
+          {/* <button onClick={handleDownload}>Download</button> */}
+          
         </main>
       </div>
     </div>

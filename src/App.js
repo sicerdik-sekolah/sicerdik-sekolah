@@ -1,6 +1,6 @@
 import "./App.css";
-import { useState } from "react";
-import { Routes, Route } from "react-router-dom";
+import { useState,useEffect } from "react";
+import { Routes, Route, useNavigate } from "react-router-dom";
 import Home from "./pages/Home";
 import Login from "./pages/Login";
 import Signup from "./pages/Signup";
@@ -23,8 +23,10 @@ import TampilanBorang from "./pages/TampilanBorang";
 import BuatLaporan from "./pages/BuatLaporan";
 import CreateBorang from "./pages/CreateBorang"
 import DetailNaskah from "./pages/DetailNaskah";
+import Cookies from "js-cookie";
 function App() {
   const [instance, setInstance] = useState();
+  
   return (
     <>
       <WebViewerContext.Provider value={{ instance, setInstance }}>

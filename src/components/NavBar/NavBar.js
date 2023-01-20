@@ -12,12 +12,13 @@ function NavBar() {
   const showHandleMenu = () => {
     setShowMenu(!showMenu);
   };
+  const token = Cookies.get("token")
   const [user, setUser] = useState(
-    authorizationCheck() == "kepala_sekolah"
+    token ? (authorizationCheck() == "kepala_sekolah"
       ? "Kepala Sekolah"
       : authorizationCheck() == "staff_sekolah"
       ? "Admin Sekolah"
-      : "unknown"
+      : "unknown") : ""
   );
   const dispatch = useDispatch();
   const navigate = useNavigate();
