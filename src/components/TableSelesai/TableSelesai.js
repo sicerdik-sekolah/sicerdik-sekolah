@@ -24,24 +24,41 @@ function TableComponent(props) {
   const { data } = useSelector((state) => state.dummyData);
 
   const dataButuhTTD = data
-    .filter((item) => {
-      return item.status_ttd_kepsek === false;
-    })
-    .map((item) => item);
+    ? [...data]
+        .reverse()
+        .filter((item) => {
+          return (
+            item.status_ttd_kepsek === false && item.status_ditolak === false
+          );
+        })
+        .map((item) => item)
+    : [];
 
   const dataPerluDikirim = data
-    .filter((item) => {
-      return item.status_kirim_dari_kepsek === false;
-    })
-    .map((item) => item);
+    ? [...data]
+        .reverse()
+        .filter((item) => {
+          return (
+            item.status_kirim_dari_kepsek === false &&
+            item.status_ditolak === false
+          );
+        })
+        .map((item) => item)
+    : [];
 
   const dataSelesai = data
-    .filter((item) => {
-      return item.status_kirim_dari_kepsek === true;
-    })
-    .map((item) => item);
-  
-  console.log(dataSelesai);
+    ? [...data]
+        .reverse()
+        .filter((item) => {
+          return (
+            item.status_kirim_dari_kepsek === true &&
+            item.status_ditolak === false
+          );
+        })
+        .map((item) => item)
+    : [];
+
+  // console.log(dataSelesai);
   return (
     <Table responsive striped bordered>
       <TableHeader dataRow={tableHeader} />
@@ -49,9 +66,10 @@ function TableComponent(props) {
       {/* {props.isVerifikasi && <TableBodySelesai data={dataVerifikasi} />} */}
       {props.isNeedSend && <TableBodySelesai data={dataPerluDikirim} />}
       {props.isDone && <TableBodySelesai data={dataSelesai} />}
-      {!props.isTTD && !props.isNeedSend && !props.isDone && !props.isVerifikasi && (
-        <TableBodySelesai data={data} />
-      )}
+      {!props.isTTD &&
+        !props.isNeedSend &&
+        !props.isDone &&
+        !props.isVerifikasi && <TableBodySelesai data={data} />}
       {/* {props.} */}
       {/* <TableBody data={data} /> */}
     </Table>

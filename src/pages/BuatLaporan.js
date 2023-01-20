@@ -103,7 +103,7 @@ function BuatLaporan() {
   };
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.log(form);
+    // console.log(form);
     Swal.fire({
       title: "Buat Naskah Baru?",
       showDenyButton: true,

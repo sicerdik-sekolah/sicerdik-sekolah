@@ -21,34 +21,53 @@ function TableComponent(props) {
     "Aksi",
   ];
   const { data } = useSelector((state) => state.dummyData);
-  const dataReverse = [...data].reverse()
-  console.log("data >>>>",dataReverse);
-  const dataButuhTTD = data ? [...data].reverse()
-    .filter((item) => {
-      return item.status_ttd_kepsek === false && item.status_ditolak === false;
-    })
-    .map((item) => item): [];
+  const dataReverse = [...data].reverse();
+  // console.log("data >>>>",dataReverse);
+  const dataButuhTTD = data
+    ? [...data]
+        .reverse()
+        .filter((item) => {
+          return (
+            item.status_ttd_kepsek === false && item.status_ditolak === false
+          );
+        })
+        .map((item) => item)
+    : [];
 
-  const dataPerluDikirim = data ? [...data].reverse()
-    .filter((item) => {
-      return item.status_kirim_dari_kepsek === false && item.status_ditolak === false;
-    })
-    .map((item) => item): [];
+  const dataPerluDikirim = data
+    ? [...data]
+        .reverse()
+        .filter((item) => {
+          return (
+            item.status_kirim_dari_kepsek === false &&
+            item.status_ditolak === false
+          );
+        })
+        .map((item) => item)
+    : [];
 
-  const dataSelesai = data ? [...data].reverse()
-    .filter((item) => {
-      return item.status_kirim_dari_kepsek === true && item.status_ditolak === false;
-    })
-    .map((item) => item) : [];
-  
+  const dataSelesai = data
+    ? [...data]
+        .reverse()
+        .filter((item) => {
+          return (
+            item.status_kirim_dari_kepsek === true &&
+            item.status_ditolak === false
+          );
+        })
+        .map((item) => item)
+    : [];
 
-  const dataDitolak = data ? [...data].reverse()
-    .filter((item) => {
-      return item.status_ditolak === true;
-    })
-    .map((item) => item) : [];
-  
-  console.log(dataSelesai);
+  const dataDitolak = data
+    ? [...data]
+        .reverse()
+        .filter((item) => {
+          return item.status_ditolak === true;
+        })
+        .map((item) => item)
+    : [];
+
+  // console.log(dataSelesai);
   return (
     <Table responsive striped bordered>
       <TableHeader dataRow={tableHeader} />
@@ -57,9 +76,11 @@ function TableComponent(props) {
       {/* {props.isVerifikasi && <TableBody data={dataVerifikasi} />} */}
       {props.isNeedSend && <TableBody data={dataPerluDikirim} />}
       {props.isDone && <TableBody data={dataSelesai} />}
-      {!props.isTTD && !props.isNeedSend && !props.isDone && !props.isVerifikasi && !props.isReject && (
-        <TableBody data={dataReverse} />
-      )}
+      {!props.isTTD &&
+        !props.isNeedSend &&
+        !props.isDone &&
+        !props.isVerifikasi &&
+        !props.isReject && <TableBody data={dataReverse} />}
       {/* {props.} */}
       {/* <TableBody data={data} /> */}
     </Table>

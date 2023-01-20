@@ -44,16 +44,16 @@ function DetailNaskah() {
   );
   // const { form } = useSelector((state) => state.login);
   const targetData = allData.find((item) => item._id == id);
-  console.log("target data >> ", targetData);
+  // console.log("target data >> ", targetData);
   // const roleSementara = "Ketua Sub Bagian";
   const [roleSementara, setRoleSementara] = useState(authorizationCheck());
 
   const onChangeTanggalDisposisi = (e) => {
     setTanggalDisposisi(e.target.value);
-    console.log("tanggal_disposisi", tanggalDisposisi);
+    // console.log("tanggal_disposisi", tanggalDisposisi);
   };
   const handleMarkAsVerified = (id) => {
-    console.log("role >>> ", roleSementara);
+    // console.log("role >>> ", roleSementara);
     if (/*form.role*/ roleSementara === "staff") {
       Swal.fire({
         title: "Verifikasi Naskah?",
@@ -97,8 +97,8 @@ function DetailNaskah() {
   };
 
   const handleMarkAsTTD = (id) => {
-    console.log("role >>> ", roleSementara);
-    console.log("file >> ", fileDisdik);
+    // console.log("role >>> ", roleSementara);
+    // console.log("file >> ", fileDisdik);
     if (/*form.role*/ roleSementara === "kepala_sekolah") {
       Swal.fire({
         title: "Yakin Untuk Menandatangi?",
@@ -210,7 +210,7 @@ function DetailNaskah() {
 
   const handleChangeFileDisdik = (e) => {
     setFileDisdik(e.target.files[0]);
-    console.log("file >> ", fileDisdik);
+    // console.log("file >> ", fileDisdik);
   };
 
   useEffect(() => {

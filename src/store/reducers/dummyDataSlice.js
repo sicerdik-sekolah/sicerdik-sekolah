@@ -11,50 +11,50 @@ const initialState = {
 export const createLaporan = createAsyncThunk(
   "/dummyDataSlice/createLaporan",
   async (payload) => {
-    console.log("payload send file disdik >> ", payload);
-    console.log(">>>>>surat_ortu", payload.surat_ortu);
-    console.log(">>>>>surat_pindah", payload.surat_pindah_sekolah);
-    console.log(">>>>>surat_lain_lain", payload.surat_lain_lain);
-    console.log(
-      ">>>>>surat_dinas_pendidikan_setempat",
-      payload.surat_rekomendasi_dinas_setempat
-    );
-    console.log(">>>>>surat_keterangan_lulus", payload.surat_keterangan_lulus);
-    console.log(">>>>>tanggal_naskah_masuk", payload.tanggal_naskah);
-    console.log(">>>>>nama_siswa", payload.nama_siswa);
-    console.log(">>>>>nisn_siswa", payload.nisn_siswa);
-    console.log(">>>>>tujuan_sekolah", payload.tujuan_sekolah);
-    console.log(">>>>>hal", payload.hal);
-    console.log(">>>>>nomor_laporan", payload.nomor_laporan);
-    console.log(">>>>>tempat_tgl_lahir", payload.tempat_tgl_lahir);
-    console.log(">>>>>nis", payload.nis);
-    console.log(">>>>>jenis_kelamin", payload.jenis_kelamin);
-    console.log(">>>>>alasan_pindah", payload.alasan_pindah);
-    console.log(">>>>>tingkatDanKelas", payload.tingkatDanKelas);
-    console.log(">>>>>nama_orang_tua", payload.nama_orang_tua);
-    console.log(">>>>>pekerjaan_orang_tua", payload.pekerjaan_orang_tua);
-    console.log(">>>>>alamat_orangtua", payload.alamat_orangtua);
-    console.log(">>>>>noHp_orangtua", payload.noHp_orangtua);
-    console.log(">>>>>jenis_surat", payload.jenis_surat);
-    console.log(">>>>>alamat_tujuan_sekolah", payload.alamat_tujuan_sekolah);
-    console.log(">>>>>noTelp_tujuan_sekolah", payload.noTelp_tujuan_sekolah);
-    console.log(">>>>>desa_tujuan_sekolah", payload.desa_tujuan_sekolah);
-    console.log(
-      ">>>>>kelurahan_tujuan_sekolah",
-      payload.kelurahan_tujuan_sekolah
-    );
-    console.log(
-      ">>>>>kecamatan_tujuan_sekolah",
-      payload.kecamatan_tujuan_sekolah
-    );
-    console.log(
-      ">>>>>kabupatenKota_tujuan_sekolah",
-      payload.kabupatenKota_tujuan_sekolah
-    );
-    console.log(
-      ">>>>>provinsi_tujuan_sekolah",
-      payload.provinsi_tujuan_sekolah
-    );
+    // console.log("payload send file disdik >> ", payload);
+    // console.log(">>>>>surat_ortu", payload.surat_ortu);
+    // console.log(">>>>>surat_pindah", payload.surat_pindah_sekolah);
+    // console.log(">>>>>surat_lain_lain", payload.surat_lain_lain);
+    // console.log(
+    //   ">>>>>surat_dinas_pendidikan_setempat",
+    //   payload.surat_rekomendasi_dinas_setempat
+    // );
+    // console.log(">>>>>surat_keterangan_lulus", payload.surat_keterangan_lulus);
+    // console.log(">>>>>tanggal_naskah_masuk", payload.tanggal_naskah);
+    // console.log(">>>>>nama_siswa", payload.nama_siswa);
+    // console.log(">>>>>nisn_siswa", payload.nisn_siswa);
+    // console.log(">>>>>tujuan_sekolah", payload.tujuan_sekolah);
+    // console.log(">>>>>hal", payload.hal);
+    // console.log(">>>>>nomor_laporan", payload.nomor_laporan);
+    // console.log(">>>>>tempat_tgl_lahir", payload.tempat_tgl_lahir);
+    // console.log(">>>>>nis", payload.nis);
+    // console.log(">>>>>jenis_kelamin", payload.jenis_kelamin);
+    // console.log(">>>>>alasan_pindah", payload.alasan_pindah);
+    // console.log(">>>>>tingkatDanKelas", payload.tingkatDanKelas);
+    // console.log(">>>>>nama_orang_tua", payload.nama_orang_tua);
+    // console.log(">>>>>pekerjaan_orang_tua", payload.pekerjaan_orang_tua);
+    // console.log(">>>>>alamat_orangtua", payload.alamat_orangtua);
+    // console.log(">>>>>noHp_orangtua", payload.noHp_orangtua);
+    // console.log(">>>>>jenis_surat", payload.jenis_surat);
+    // console.log(">>>>>alamat_tujuan_sekolah", payload.alamat_tujuan_sekolah);
+    // console.log(">>>>>noTelp_tujuan_sekolah", payload.noTelp_tujuan_sekolah);
+    // console.log(">>>>>desa_tujuan_sekolah", payload.desa_tujuan_sekolah);
+    // console.log(
+    //   ">>>>>kelurahan_tujuan_sekolah",
+    //   payload.kelurahan_tujuan_sekolah
+    // );
+    // console.log(
+    //   ">>>>>kecamatan_tujuan_sekolah",
+    //   payload.kecamatan_tujuan_sekolah
+    // );
+    // console.log(
+    //   ">>>>>kabupatenKota_tujuan_sekolah",
+    //   payload.kabupatenKota_tujuan_sekolah
+    // );
+    // console.log(
+    //   ">>>>>provinsi_tujuan_sekolah",
+    //   payload.provinsi_tujuan_sekolah
+    // );
     const token = Cookies.get("token");
     let formData = new FormData();
     formData.append("surat_ortu", payload.surat_ortu);
@@ -116,7 +116,7 @@ export const createLaporan = createAsyncThunk(
       },
     });
 
-    console.log("res >> ", res);
+    // console.log("res >> ", res);
     return res;
   }
 );
@@ -174,7 +174,7 @@ export const changeStatusKirimKepsek = createAsyncThunk(
           Authorization: "Bearer " + token,
         },
       });
-      console.log("res >> ", res);
+      // console.log("res >> ", res);
       return res;
     } catch (error) {
       console.log(error);
@@ -194,7 +194,7 @@ export const changeStatusKirim = createAsyncThunk(
           Authorization: "Bearer " + token,
         },
       });
-      console.log("res >> ", res);
+      // console.log("res >> ", res);
       return res;
     } catch (error) {
       console.log(error);
@@ -217,7 +217,7 @@ export const updateNaskahVerifikasi = createAsyncThunk(
         },
         data: payload,
       });
-      console.log("res >> ", res);
+      // console.log("res >> ", res);
       return res;
     } catch (error) {
       console.log(error);
@@ -230,7 +230,7 @@ export const changeStatusTTD = createAsyncThunk(
   async (id) => {
     try {
       const token = Cookies.get("token");
-      console.log("token >>> ", token);
+      // console.log("token >>> ", token);
       const res = await axios({
         method: "put",
         url: `${apiPath}/cms/laporan/ubah-status-ttd-kepsek/${id}`,
@@ -238,7 +238,7 @@ export const changeStatusTTD = createAsyncThunk(
           Authorization: "Bearer " + token,
         },
       });
-      console.log("res >> ", res);
+      // console.log("res >> ", res);
       return res;
     } catch (error) {
       console.log(error);
@@ -251,10 +251,10 @@ export const updateNaskahTelahTTDKepsek = createAsyncThunk(
   async (payload) => {
     let filename = payload.data;
 
-    console.log("payload send file disdik >> ", payload);
-    console.log("filename send file disdik >> ", filename);
+    // console.log("payload send file disdik >> ", payload);
+    // console.log("filename send file disdik >> ", filename);
     const token = Cookies.get("token");
-    console.log("token >> ", token);
+    // console.log("token >> ", token);
     let formData = new FormData();
     formData.append("surat_pindah", filename);
     // const res = await axios({
@@ -277,7 +277,7 @@ export const updateNaskahTelahTTDKepsek = createAsyncThunk(
       }
     );
 
-    console.log("res >> ", res);
+    // console.log("res >> ", res);
     return res;
   }
 );
@@ -326,7 +326,7 @@ export const dummyDataSlice = createSlice({
         // console.log("action payload >>> ", action.payload);
       })
       .addCase(changeStatusTTD.fulfilled, (state, action) => {
-        console.log("action payload >>> ", action.payload);
+        // console.log("action payload >>> ", action.payload);
       })
 
       .addCase(changeStatusKirim.fulfilled, (state, action) => {
@@ -337,7 +337,7 @@ export const dummyDataSlice = createSlice({
       })
 
       .addCase(createLaporan.fulfilled, (state, action) => {
-        console.log("action payload >>> ", action.payload);
+        // console.log("action payload >>> ", action.payload);
       });
   },
 });

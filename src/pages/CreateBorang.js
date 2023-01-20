@@ -3,7 +3,7 @@ import NavBar from "../components/NavBar/NavBar";
 import jsPDF from "jspdf";
 import SideBar from "../components/SideBar/SideBar";
 import { useReactToPrint } from "react-to-print";
-import Button from "../components/ButtonFormView/ButtonFormView"
+import Button from "../components/ButtonFormView/ButtonFormView";
 import { useEffect, useRef } from "react";
 import {
   useParams,
@@ -66,8 +66,8 @@ function CreateBorang(props) {
     nama_kepala_sekolah: searchParams.get("nama_kepala_sekolah"),
     nip_kepala_sekolah: searchParams.get("nip_kepala_sekolah"),
   };
-  console.log("searchparams >> ", searchParams.get("nama_siswa"));
-  console.log("props >> ", props);
+  // console.log("searchparams >> ", searchParams.get("nama_siswa"));
+  // console.log("props >> ", props);
   const token = Cookies.get("token");
   useEffect(() => {
     if (!token) {
@@ -76,7 +76,7 @@ function CreateBorang(props) {
   }, []);
   console.log("query >> ", jsonData);
 
-  const printArea = useRef()
+  const printArea = useRef();
   const handlePrint = useReactToPrint({
     content: () => printArea.current,
     documentTitle: "emp-data",
@@ -111,7 +111,7 @@ function CreateBorang(props) {
             <h4 className="text-center ">Buat Borang </h4>
           </div>
           <div className="container d-flex justify-content-center mb-3">
-          <ButtonFormView onClick={handlePrint}>Cetak Borang</ButtonFormView>
+            <ButtonFormView onClick={handlePrint}>Cetak Borang</ButtonFormView>
           </div>
           <div
             className="webviewer"
@@ -126,14 +126,19 @@ function CreateBorang(props) {
               alignItems: "center",
             }}
           >
-            <div ref={printArea} id="content" style={{padding: "1rem 2rem"}}>
-              {jenisSurat === "FORMAT_PINDAH_SEKOLAH" && <SuratPindahSekolahKeluar data={jsonData} />}
-              {jenisSurat === "FORMAT_PINDAH_RAYON" && <SuratPindahRayonKeluar data={jsonData} />}
-              {jenisSurat === "FORMAT_SURAT_PERMOHONAN_ORTU" && <SuratPermohonanOrangTua data={jsonData} />}
+            <div ref={printArea} id="content" style={{ padding: "1rem 2rem" }}>
+              {jenisSurat === "FORMAT_PINDAH_SEKOLAH" && (
+                <SuratPindahSekolahKeluar data={jsonData} />
+              )}
+              {jenisSurat === "FORMAT_PINDAH_RAYON" && (
+                <SuratPindahRayonKeluar data={jsonData} />
+              )}
+              {jenisSurat === "FORMAT_SURAT_PERMOHONAN_ORTU" && (
+                <SuratPermohonanOrangTua data={jsonData} />
+              )}
             </div>
           </div>
           {/* <button onClick={handleDownload}>Download</button> */}
-          
         </main>
       </div>
     </div>

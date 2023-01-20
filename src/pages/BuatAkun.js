@@ -51,7 +51,7 @@ function BuatAkun() {
         },
       });
 
-      console.log(data);
+      // console.log(data);
     } catch (error) {
       console.log(error);
     }
@@ -68,8 +68,8 @@ function BuatAkun() {
       }).then((result) => {
         /* Read more about isConfirmed, isDenied below */
         if (result.isConfirmed) {
-          console.log("form >>> ", form);
-          console.log("role >>> ", jabatan);
+          // console.log("form >>> ", form);
+          // console.log("role >>> ", jabatan);
           makeAccount();
           Swal.fire("Akun Berhasil Dibuat!", "", "success");
           navigation("/manajemen-akun/users");
