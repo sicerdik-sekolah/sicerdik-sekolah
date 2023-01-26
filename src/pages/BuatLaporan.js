@@ -115,7 +115,7 @@ function BuatLaporan() {
         Swal.fire("Naskah Telah Dibuat!", "", "success");
         dispatch(createLaporan(form));
         navigation("/home");
-        window.location.reload();
+        // window.location.reload();
       }
     });
   };

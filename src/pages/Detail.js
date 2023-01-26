@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import { Link, useParams } from "react-router-dom";
 import { useNavigate, createSearchParams } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
+import { apiPath } from "../config/index";
 import {
   changeStatusVerifikasi,
   changeStatusKirim,
@@ -21,6 +22,8 @@ import ViewStatusCard from "../components/ViewStatusCard/ViewStatusCard";
 import Swal from "sweetalert2";
 import SideBar from "../components/SideBar/SideBar";
 import { authorizationCheck } from "../utils/authRole";
+import axios from "axios";
+import Cookies from "js-cookie";
 
 function Detail() {
   const { id } = useParams();
@@ -43,6 +46,8 @@ function Detail() {
   );
   // const { form } = useSelector((state) => state.login);
   const targetData = allData.find((item) => item._id == id);
+  // const [targetData, setTargetData]= useState({})
+
   // console.log("target data >> ", targetData);
   // const roleSementara = "Ketua Sub Bagian";
   const [roleSementara, setRoleSementara] = useState(authorizationCheck());
@@ -280,7 +285,7 @@ function Detail() {
     setFileDisdik(e.target.files[0]);
     // console.log("file >> ", fileDisdik);
   };
-
+  
   useEffect(() => {
     if (errorMessage) {
       Swal.fire({

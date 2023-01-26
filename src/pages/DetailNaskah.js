@@ -22,6 +22,9 @@ import ViewStatusCard from "../components/ViewStatusCard/ViewStatusCard";
 import Swal from "sweetalert2";
 import SideBar from "../components/SideBar/SideBar";
 import { authorizationCheck } from "../utils/authRole";
+import Cookies from "js-cookie";
+import axios from "axios";
+import { apiPath } from "../config";
 
 function DetailNaskah() {
   const { id } = useParams();
@@ -44,6 +47,8 @@ function DetailNaskah() {
   );
   // const { form } = useSelector((state) => state.login);
   const targetData = allData.find((item) => item._id == id);
+  // const [targetData, setTargetData] = useState({});
+
   // console.log("target data >> ", targetData);
   // const roleSementara = "Ketua Sub Bagian";
   const [roleSementara, setRoleSementara] = useState(authorizationCheck());

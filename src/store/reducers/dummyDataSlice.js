@@ -116,7 +116,7 @@ export const createLaporan = createAsyncThunk(
       },
     });
 
-    // console.log("res >> ", res);
+    console.log("res >> ", res);
     return res;
   }
 );
@@ -126,19 +126,19 @@ export const fetchNaskah = createAsyncThunk(
   async () => {
     try {
       const token = Cookies.get("token");
-      // console.log("token >>> ", token);
       const resp = await axios({
-        method: "get",
+        method: "GET",
         url: `${apiPath}/cms/laporan-sekolah`,
         headers: {
           Authorization: `Bearer ${token}`,
         },
       });
-      // console.log("respon laporan fetching >> ", resp);
+
       return resp.data.data;
     } catch (error) {
       console.log(error);
     }
+    
   }
 );
 
