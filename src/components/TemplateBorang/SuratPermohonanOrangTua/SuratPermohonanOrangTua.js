@@ -67,7 +67,7 @@ function SuratPermohonanOrangTua(props) {
           <div className="">
             <p className="d-flex  flex-row" style={{ gap: "8.5rem" }}>
               <span className=""> Jenis Kelamin </span>
-              <span>: {props.data.pekerjaan_orang_tua}</span>
+              <span>: {props.data.jenis_kelamin}</span>
             </p>
           </div>
           <div className="">
